@@ -1,1 +1,1 @@
-# tensor_school
+Тестовая страница для обучения студентов в Tensor School Ufa
