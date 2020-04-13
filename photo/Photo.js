@@ -39,6 +39,6 @@
 
     render() {
     return `<link rel="stylesheet" type="text/css" href="photo.css"/>
-      <img src="${this.url}" class='${this.chooseStyle()}' alt="Photo">`;
+      <img src="${this.urlPhoto()}" class='${this.chooseStyle()}' alt="Photo">`;
     }
   }
