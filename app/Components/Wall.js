@@ -57,24 +57,13 @@ define(
                 </div>
                 <div class="post-body">
                   <p class="post-body__text" title="${post.text}">${post.text}</p>
-                  ${this.renderPostImage(post.img)}
+                  ${post.img ? `<img class="block__img post-body__img" src="${post.img}" alt=""/>` : ''}
                 </div>
               </div>
           `
         });
         return posts;
       }
-      /**
-       * Рендер картинки внутри поста. В зависимости от того передана она или нет
-       */
-      renderPostImage(img){
-        if (img){
-          return `<img class="block__img post-body__img" src="${img}" alt=""/>`;
-        } else {
-          return ``;
-        }
-      }
-
     };
 
   });
