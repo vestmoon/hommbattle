@@ -1,44 +1,72 @@
 define(
     'app/Components/Header.js', [
         'app/Components/Component.js',
-        'css!assets/css/Header.css'
-    ], function (Component) {
+        'css!app/Component/Header.css'
+    ],function(Component) {
 
-        return class Header extends Component {
+		return class Header extends Component  {
 
-            /**
+			/**
              * Инициализация компонента
              */
-            constructor() {
+			constructor(data) {
+				super();
+				this.data = data;
+				this.addEventToggleNav()
+			}
 
-                // Функция, вызывающая родительский конструктор
-                super();
+			
 
-            }
+			addEventToggleNav() {
+				document.addEventListener('click',function(e){
+					if(e.target && e.target.classList.contains('header__profile')){
+				          const headerProfile = document.querySelector('.header__profile');
+							const nav = document.querySelector('.profile__nav');
+							const navClasses = nav.classList;
 
-            /**
-             * Рендеринг компонента
-             * @returns {string}
-             */
-            render() {
+							if(navClasses.contains('visible')) {
+								navClasses.remove('visible');
+							}
+							else {
+								navClasses.add('visible');
+								document.addEventListener('click', function handler(event) {
+									if (nav && !headerProfile.contains(event.target)) {
+										closeNav();
+										navClasses.remove('visible');
+										this.removeEventListener('click',handler);
+									}
+								});
+							} 
+				    }
+				});
+		}
 
-                // Возвращение рендера
-                return `
-                    <header class="header">
-                        <div class="block block--header">
-                            <aside class="block__title">
-                                В сети
-                            </aside>
-                            <div class="block__manage">
-                                <a class="block__link" href="#">Редактировать</a>
-                                <img class="block__img" src="assets/img/people-square.jpg" alt=""/>
-                                <i class="fas fa-ellipsis-v"></i>
-                            </div>
-                        </div>
-                    </header>
-                `;
-            }
+			render() {
+				return `
+				<div class="header header_blue">
+					<div class="header__wraper wraper">
+						<div class="header__status">
+							<p>${this.data.activity || "В сети"}</p>
+						</div>
+						<div class="header__profile">
+							<img src="${this.data.photoUrl || "img/profile__photo.jpg" }" class="profile__img profile__img_small" alt="Фото пользователя">
+							<span class="profile__settings">
+								<span class="settings-dot"></span>
+								<span class="settings-dot"></span>
+								<span class="settings-dot"></span>
+							</span>
+							<div class="profile__nav">
+								<a class="nav-link" href="#">Редактировать</a>
+								<a class="nav-link" href="#">Настройки</a>
+								<hr class="nav-link__line">
+								<a class="nav-link" href="#">Выйти</a>
+							</div>
+						</div>
+					</div>
+				</div>`;
+			}
+		}
+});
 
-        };
 
-    });
+
