@@ -9,7 +9,7 @@ define('app/Controllers/UserPage.js', [
     'css!assets/libs/normalize/normalize.css',
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
-], function (Controller, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Message) {
+], function (Controller, Header, ProfileInfo, ProfilePhotos, Photo, ProfileActions, Message) {
 	const user = {
         id: 1,
         firstName: 'Эммелин',
