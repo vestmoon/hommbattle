@@ -1,0 +1,35 @@
+/*
+ * Avatar Block
+ */
+.block--avatar {
+  position: relative;
+}
+.block--avatar .block__img {
+  max-width: 100%;
+  border-radius: 2px;
+}
+.block--avatar .panel {
+  position: relative;
+  cursor: pointer;
+}
+.block--avatar .panel i {
+  color: #ffffff;
+  opacity: 0.8;
+}
+.block--avatar .panel i:hover {
+  opacity: 1;
+}
+.block--avatar .panel-body {
+  opacity: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(29, 32, 34, 0.7);
+  position: absolute;
+  padding: 5px;
+  text-align: right;
+}
+.block--avatar .panel:hover .panel-body {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=ProfileAvatar.css.map */

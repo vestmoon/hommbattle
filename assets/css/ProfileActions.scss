@@ -1,0 +1,40 @@
+.block--actions {
+
+  a {
+    text-decoration: none;
+  }
+
+  .details {
+
+    text-align: center;
+    grid-row-gap: 10px;
+    grid-column-gap: 5px;
+    justify-content: space-around;
+
+    &__item {
+      background-color: #e5ebf1;
+      border-radius: 5px;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #d7dfe6;
+      }
+    }
+
+    &__title {
+      color: #88a7bf;
+
+      i {
+        padding-top: 13px;
+        font-size: 20px;
+      }
+    }
+
+    &__value {
+      color: #88a7bf;
+      font-size: 14px;
+    }
+
+  }
+}
