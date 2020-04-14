@@ -34,7 +34,6 @@ define(
        * @returns {string}
        */
       render() {
-        this.renderPosts()
         // Возвращение рендера
         return `
               <div class="block wall">
