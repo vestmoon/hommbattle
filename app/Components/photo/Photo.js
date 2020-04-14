@@ -12,7 +12,7 @@ define("app/Components/photo/Photo.js", [
       super();
       this.url = url;
       this.size = size;
-    }
+    }ы
 
     /**
      * Рендеринг компонента
