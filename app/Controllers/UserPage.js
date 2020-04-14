@@ -5,10 +5,11 @@ define('app/Controllers/UserPage.js', [
     "app/Components/ProfilePhotos.js",
     "app/Components/ProfileAvatar.js",
     "app/Components/ProfileActions.js",
+    "app/Components/Wall.js",
     'css!assets/libs/normalize/normalize.css',
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
-], function (Controller, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions) {
+], function (Controller, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Wall) {
 
     return class UserPage extends Controller {
 
@@ -35,6 +36,7 @@ define('app/Controllers/UserPage.js', [
                         <aside>
                             ${new ProfileInfo()}
                             ${new ProfilePhotos()}
+                            ${new Wall()}
                         </aside>
                         <div>
                             ${new ProfileAvatar()}
