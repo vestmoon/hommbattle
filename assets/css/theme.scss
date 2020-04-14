@@ -1,0 +1,125 @@
+/*
+ * Fonts
+ */
+
+@import "fonts";
+
+/*
+ * Variables
+ */
+
+$container-max-width: 992px;
+$body-text-color: #000000;
+
+/*
+ * Main
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #d9dfe4;
+  font-family: Gilroy, sans-serif;
+  font-size: 16px;
+  color: $body-text-color;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/*
+ * Container
+ */
+
+.container {
+  width: 95%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+}
+
+/*
+ * Section Layout
+ */
+
+section.layout {
+  display: grid;
+  grid-template-columns: 68% auto;
+  grid-column-gap: 10px;
+}
+
+/**
+ Block
+ */
+
+.block {
+
+  margin-top: 10px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
+
+  &__title, &__subtitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title {
+    &--heading {
+      font-size: 25px;
+      font-weight: 500;
+    }
+  }
+
+  &__subtitle {
+    font-size: 15px;
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__link {
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+/*
+ * Details Block
+ */
+
+.details {
+
+  display: grid;
+  grid-row-gap: 3px;
+  font-size: 15px;
+
+  &--column {
+    grid-template-columns: repeat(auto-fill, 85px);
+  }
+
+  &__title, &__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title {
+    color: #818181;
+  }
+
+  &__value {
+    color: #2a5885;
+  }
+
+  &__item {
+    display: grid;
+    grid-column-gap: 20px;
+
+    &--column {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
