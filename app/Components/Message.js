@@ -8,25 +8,27 @@
     text:"Я снова в строю и готов воевать за свою королеву!",
     img:"assets/img/2_full.jpg"
     }
- *   
+ *  и тип ('message'/'post') 
+ *  в зависимости от которой изменяется внешний вид компонента
  */
 define(
-  'app/Components/Wall.js', [
+  'app/Components/Message.js', [
     'app/Components/Component.js',
-    'css!app/Components/Wall.css'
+    'css!app/Components/Message.css'
   ],
   function (Component) {
 
-    return class Wall extends Component {
+    return class Message extends Component {
 
       /**
        * Инициализация компонента
        */
-      constructor(posts) {
+      constructor(posts, type = 'post') {
 
         // Функция, вызывающая родительский конструктор
         super();
         this.posts = posts;
+        this.type = type;
       }
 
       /**
@@ -35,11 +37,11 @@ define(
        */
       render() {
         // Возвращение рендера
-        return `
-              <div class="block wall">
-                ${this.renderPosts()}
-              </div>
-              `;
+          return `
+          <div class="block messages">
+            ${this.renderPosts()}
+          </div>
+          `;
       }
       /**
        * Рендер постов 
@@ -48,20 +50,29 @@ define(
         let posts = '';
         this.posts.forEach(post => {
           posts += `
-              <div class="post">
+              <div class="post ${this.type == 'message' ? 'message' : ''}">
                 <div class="post-head">
                   <img class="block__img post-head__img" src="${post.avatar}" alt=""/>
-                  <span class="post-head__name" title="${post.name}">${post.name}</span>
+                  <span class="post-head__name" title="${post.name}"><a href="#">${post.name}</a></span>
                   <span class="post-head__date" title="${post.date}">${post.date}</span>
+                  <span class="post-head__text" title="${post.text}">${post.text}</span>
                 </div>
-                <div class="post-body">
-                  <p class="post-body__text" title="${post.text}">${post.text}</p>
-                  ${post.img ? `<img class="block__img post-body__img" src="${post.img}" alt=""/>` : ''}
-                </div>
+                  ${this.type == 'post' ? this.renderPostAttachments(post) : ''}        
               </div>
           `
         });
         return posts;
+      }
+      /**
+       * При выборе типа "post" возможен
+       * пендер прикрепленных файлов (фото)
+       */
+      renderPostAttachments(post){
+        return `
+        <div class="post-attachments">
+          ${post.img ? `<img class="block__img post-attachments__img" src="${post.img}" alt=""/>` : ''}
+        </div>
+        `;
       }
     };
 
