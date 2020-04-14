@@ -1,6 +1,7 @@
 define(
     'app/Components/Header.js', [
         'app/Components/Component.js',
+        'app/Components/Photo.js',
         'css!app/Component/Header.css'
     ],function(Component) {
 
@@ -12,7 +13,7 @@ define(
 			constructor(data) {
 				super();
 				this.data = data;
-				this.addEventToggleNav()
+				this.addEventToggleNav();
 			}
 
 			
@@ -46,10 +47,10 @@ define(
 				<div class="header header_blue">
 					<div class="header__wraper wraper">
 						<div class="header__status">
-							<p>${this.data.activity || "В сети"}</p>
+							<p>${this.data.activity}</p>
 						</div>
 						<div class="header__profile">
-							<img src="${this.data.photoUrl || "img/profile__photo.jpg" }" class="profile__img profile__img_small" alt="Фото пользователя">
+							<img src="${new Photo(this.data.photoUrl)}" class="profile__img profile__img_small" alt="Фото пользователя">
 							<span class="profile__settings">
 								<span class="settings-dot"></span>
 								<span class="settings-dot"></span>
