@@ -1,5 +1,9 @@
 
 /* Wall block */
+a{
+  text-decoration: none; 
+}
+
 .messages{
   display: grid;
   grid-template-columns: auto;
