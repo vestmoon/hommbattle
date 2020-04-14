@@ -1,0 +1,37 @@
+/*
+ * User Block
+ */
+.block--user {
+  padding: 20px;
+}
+.block--user .block__title {
+  margin-bottom: 10px;
+}
+.block--user .block__subtitle {
+  line-height: 1;
+  color: #000000d9;
+  white-space: normal;
+}
+.block--user .block__subtitle:after {
+  content: "";
+  display: block;
+  border-bottom: #e7e8ec 1px solid;
+  margin: 20px 0 20px;
+}
+.block--user .details {
+  width: 70%;
+}
+.block--user .details__title {
+  align-self: center;
+}
+.block--user a.block__link {
+  display: block;
+  margin-top: 10px;
+  color: #2a5885;
+}
+.block--user .additionally {
+  display: none;
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=ProfileInfo.css.map */
