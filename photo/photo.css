@@ -1,12 +1,20 @@
-/*маленькая круглая фотка*/
+/*самая маленькая круглая фотка*/
+.xs-photo{
+    object-fit: contain;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+/*просто маленькая круглая фотка*/
 .s-photo{
-    object-fit: cover;
-    width: 40px;
-    height: 40px;
+    object-fit: contain;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
 }
 /*средняя квадратная фотка*/
 .m-photo{
+    object-fit: contain;
     height: 140px;
     width: auto;
     margin: 5px 4px 10px 4px;
@@ -14,12 +22,13 @@
  }
  /*большая фотка (по умолчанию)*/
 .l-photo{  
+    object-fit: contain;
     object-fit: cover;
     width: 230px;
     height: auto;
     border-radius: 3%;
 }
 /*курсор при наведении*/
-.s-photo:hover, .m-photo, .l-photo{
+.xs-photo:hover, .s-photo:hover:hover, .m-photo:hover, .l-photo:hover{
     cursor: pointer;
 }
