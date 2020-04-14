@@ -1,28 +1,28 @@
-define([
-  'css!style/photo.css'
-], function() {
-
-    'use strict';
-      /**класс возвращает фотографию */
-    return class Photo {
-      /**
-      *
-      *@param {url} url - url фото
-      *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;), 'l' (width: 230px)
-      */
-      constructor(url, size) {
-        this.url = url;
-        this.size = size;
-        this.render();
-      }
-  
-      render() {
-       return      
-        `
-        <link rel="stylesheet" type="text/css" href="style/photo.css"/>
-        <img src="${this.url || 'img/default_photo.jpg'}" class='${this.size || 'l'}-photo' alt="Photo">`;
-      }
+define("app/Components/photo/Photo.js", [
+  "app/Components/Component.js",
+  "css!app/Components/photo/photo.css",
+], function (Component) {
+  return class Photo extends Component {
+    /**
+     *
+     *@param {url} url - url фото
+     *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;), 'l' (width: 230px)
+     */
+    constructor(url, size) {
+      super();
+      this.url = url;
+      this.size = size;
     }
-  });
 
-  
+    /**
+     * Рендеринг компонента
+     * @returns {string}
+     */
+    render() {
+      return `
+             <img src="${
+               this.url || "app/Components/photo/default_photo.jpg"
+             }" class='${this.size || "l"}-photo' alt="Photo">`;
+    }
+  };
+});
