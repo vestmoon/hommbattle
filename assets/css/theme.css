@@ -69,6 +69,7 @@
  */
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 body {
@@ -78,6 +79,10 @@ body {
   color: #000000;
   line-height: 1.5;
   margin: 0;
+}
+
+a{
+  text-decoration: none; 
 }
 
 /*
