@@ -1,0 +1,31 @@
+.block--actions a {
+  text-decoration: none;
+}
+.block--actions .details {
+  text-align: center;
+  grid-row-gap: 10px;
+  grid-column-gap: 5px;
+  justify-content: space-around;
+}
+.block--actions .details__item {
+  background-color: #e5ebf1;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+.block--actions .details__item:hover {
+  background-color: #d7dfe6;
+}
+.block--actions .details__title {
+  color: #88a7bf;
+}
+.block--actions .details__title i {
+  padding-top: 13px;
+  font-size: 20px;
+}
+.block--actions .details__value {
+  color: #88a7bf;
+  font-size: 14px;
+}
+
+/*# sourceMappingURL=ProfileActions.css.map */
