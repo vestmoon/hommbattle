@@ -1,0 +1,33 @@
+/*самая маленькая круглая фотка*/
+.xs-photo{
+    object-fit: cover;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+/*просто маленькая круглая фотка*/
+.s-photo{
+    object-fit: cover;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+/*средняя квадратная фотка*/
+.m-photo{
+    height: 150px;
+    width: auto;
+    margin: 5px 4px 10px 4px;
+    border-radius: 3%;
+ }
+ /*большая фотка (по умолчанию)*/
+.l-photo{  
+    /* object-fit: cover; */
+    height: 290px;
+    width: auto;
+    border-radius: 3%;
+    margin: 10px 5px 0px 5px;
+}
+/*курсор при наведении*/
+.xs-photo:hover, .s-photo:hover, .m-photo:hover, .l-photo:hover{
+    cursor: pointer;
+}
