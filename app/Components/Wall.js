@@ -1,3 +1,15 @@
+/**
+ * Компонент Wall отвечает за рендер стены пользователя
+ * На вход принимает массив объектов вида:
+ * {
+    avatar:"assets/img/1_square.jpg",
+    name:"Джон Сноу",
+    date:"Вчера 16:10",
+    text:"Я снова в строю и готов воевать за свою королеву!",
+    img:"assets/img/2_full.jpg"
+    }
+ *   
+ */
 define(
   'app/Components/Wall.js', [
     'app/Components/Component.js',
@@ -30,7 +42,9 @@ define(
               </div>
               `;
       }
-
+      /**
+       * Рендер постов 
+       */
       renderPosts(){
         let posts = '';
         this.posts.forEach(post => {
@@ -50,7 +64,9 @@ define(
         });
         return posts;
       }
-      
+      /**
+       * Рендер картинки внутри поста. В зависимости от того передана она или нет
+       */
       renderPostImage(img){
         if (img){
           return `<img class="block__img post-body__img" src="${img}" alt=""/>`;
