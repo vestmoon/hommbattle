@@ -2,14 +2,14 @@ define('app/Controllers/UserPage.js', [
     "app/Controllers/Controller.js",
     "app/Components/Header.js",
     "app/Components/ProfileInfo.js",
-    "app/Components/ProfilePhotos.js",
+    "app/Components/gallery/Gallery.js",
     "app/Components/photo/Photo.js",
     "app/Components/ProfileActions.js",
     "app/Components/Message.js",
     'css!assets/libs/normalize/normalize.css',
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
-], function (Controller, Header, ProfileInfo, ProfilePhotos, Photo, ProfileActions, Message) {
+], function (Controller, Header, ProfileInfo, Gallery, Photo, ProfileActions, Message) {
 	const user = {
         id: 1,
         firstName: 'Эммелин',
@@ -70,7 +70,13 @@ define('app/Controllers/UserPage.js', [
                 date:"Вчера 16:10",
                 text:"Я к вам пишу — чего же боле? Что я могу ещё сказать? Теперь, я знаю, в вашей воле Меня презреньем наказать.",
             }]
-
+            
+            this.photos = [
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
+                "assets/img/4_square.jpg",
+            ];
         }
 
         /**
@@ -85,7 +91,9 @@ define('app/Controllers/UserPage.js', [
                     <section class="layout">
                         <aside>
                             ${new ProfileInfo(user)}
-                            ${new ProfilePhotos()}
+                            <div class="block block_gallery">
+                                ${new Gallery(this.photos)}
+                            </div>
                             ${new Message(this.postsData, 'post')}
                         </aside>
                         <div> 
