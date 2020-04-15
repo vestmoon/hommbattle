@@ -32,7 +32,6 @@
 .size_xl{  
     width: 640px;
     height: auto;
-    margin: 10px 5px 0px 5px;
 }
 /*курсор при наведении*/
 .size_xs:hover, .size_s:hover, .size_m:hover, .size_l:hover, .size_xl:hover{
