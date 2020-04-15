@@ -109,7 +109,7 @@ define('app/Controllers/UserPage.js', [
         afterRender() {
             let comp = this.component;
             Object.keys(comp).forEach(function (key){
-                comp[key].afterRen();
+                comp[key].afterRender();
             });
         }
 
