@@ -16,8 +16,7 @@ define("app/Components/photo/Photo.js", [
 
     round(){
       let mod_round ='';
-      if(this.size == 'xs' || this.size == 's')
-      {
+      if (this.size == 'xs' || this.size == 's') {
         mod_round = 'photo_round';
       }
       return mod_round;
@@ -28,7 +27,9 @@ define("app/Components/photo/Photo.js", [
      * @returns {string}
      */
     render() {
-      return ` <img src="${this.url}" class='photo size_${this.size} ${this.round()}' alt="Photo">`;
+      return ` <div class = "bloc_${this.size}">
+          <img src="${this.url}" class='photo size_${this.size} ${this.round()}' alt="Photo">
+               </div>`;
     }
   };
 });

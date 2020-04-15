@@ -88,8 +88,10 @@ define('app/Controllers/UserPage.js', [
                             ${new ProfilePhotos()}
                             ${new Message(this.postsData, 'post')}
                         </aside>
-                        <div>
-                            ${new Photo("assets/img/people-square.jpg",'l')}
+                        <div> 
+                            <div class="block">
+                                ${new Photo("assets/img/people-square.jpg",'l')}
+                            </div>
                             ${new ProfileActions()}
                             ${new Message(this.messagesData, 'message')}
                         </div>

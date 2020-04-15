@@ -1,39 +1,36 @@
 /*общий класс фото*/
-.photo{
-    object-fit: cover;
+.photo {
+  object-fit: cover;
+}
+.photo:hover {
+  cursor: pointer;
 }
 /*круглая фотка*/
-.photo_round{
-    border-radius: 50%;
+.photo_round {
+  border-radius: 50%;
 }
 /*самая маленькая круглая фотка*/
-.size_xs{
-    width: 28px;
-    height: 28px;
+.size_xs {
+  width: 35px;
+  height: 35px;
 }
 /*просто маленькая круглая фотка*/
-.size_s{
-    width: 45px;
-    height: 45px;
+.size_s {
+  width: 45px;
+  height: 45px;
 }
 /*средняя квадратная фотка*/
-.size_m{
-    height: 150px;
-    width: auto;
-    margin: 5px 4px 10px 4px;
- }
- /*большая фотка (по умолчанию)*/
-.size_l{  
-    height: 290px;
-    width: auto;
-    margin: 10px 5px 0px 5px;
+.size_m {
+  height: 150px;
+  width: auto;
 }
- /*самая большая фотка*/
-.size_xl{  
-    width: 640px;
-    height: auto;
+/*большая фотка (по умолчанию)*/
+.size_l {
+  height: 280px;
+  width: auto;
 }
-/*курсор при наведении*/
-.size_xs:hover, .size_s:hover, .size_m:hover, .size_l:hover, .size_xl:hover{
-    cursor: pointer;
+/*самая большая фотка*/
+.size_xl {
+  width: 640px;
+  height: auto;
 }
