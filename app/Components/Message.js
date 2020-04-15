@@ -14,14 +14,17 @@
 define(
   'app/Components/Message.js', [
     'app/Components/Component.js',
+    'app/Components/photo/Photo.js',
     'css!app/Components/Message.css'
   ],
-  function (Component) {
+  function (Component, Photo) {
 
     return class Message extends Component {
 
       /**
        * Инициализация компонента
+       * @param {Array} posts - массив объектов
+       * @param {String} type - тип сообщения: message или post
        */
       constructor(posts, type = 'post') {
 
@@ -37,8 +40,8 @@ define(
        */
       render() {
         // Возвращение рендера
-          return `
-          <div class="block messages">
+        return `
+          <div class="messages">
             ${this.renderPosts()}
           </div>
           `;
@@ -46,13 +49,15 @@ define(
       /**
        * Рендер постов 
        */
-      renderPosts(){
+      renderPosts() {
         let posts = '';
         this.posts.forEach(post => {
           posts += `
               <div class="post ${this.type == 'message' ? 'message' : ''}">
                 <div class="post-head">
-                  <img class="block__img post-head__img" src="${post.avatar}" alt=""/>
+                  <div class="post-head__img">
+                    ${new Photo(post.avatar,'s')}
+                  </div>
                   <span class="post-head__name" title="${post.name}"><a href="#">${post.name}</a></span>
                   <span class="post-head__date" title="${post.date}">${post.date}</span>
                   <span class="post-head__text" title="${post.text}">${post.text}</span>
@@ -67,10 +72,10 @@ define(
        * При выборе типа "post" возможен
        * пендер прикрепленных файлов (фото)
        */
-      renderPostAttachments(post){
+      renderPostAttachments(post) {
         return `
         <div class="post-attachments">
-          ${post.img ? `<img class="block__img post-attachments__img" src="${post.img}" alt=""/>` : ''}
+          ${post.img ? new Photo(post.img, 'xl') : ''}
         </div>
         `;
       }
