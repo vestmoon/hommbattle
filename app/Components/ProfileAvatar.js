@@ -1,8 +1,9 @@
 define(
     'app/Components/ProfileAvatar.js', [
         'app/Components/Component.js',
-        'css!assets/css/ProfileAvatar.css'
-    ], function (Component) {
+        'css!assets/css/ProfileAvatar.css',
+        "app/Components/ProfilePhotos.js",
+    ], function (Component, Photo) {
 
         return class ProfileAvatar extends Component {
 

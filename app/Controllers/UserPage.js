@@ -3,13 +3,14 @@ define('app/Controllers/UserPage.js', [
     "app/Components/Header.js",
     "app/Components/ProfileInfo.js",
     "app/Components/ProfilePhotos.js",
-    "app/Components/ProfileAvatar.js",
+    "app/Components/photo/Photo.js",
     "app/Components/ProfileActions.js",
     "app/Components/Message.js",
     'css!assets/libs/normalize/normalize.css',
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
-], function (Controller, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Message) {
+], function (Controller, Header, ProfileInfo, ProfilePhotos, Photo, ProfileActions, Message) {
+
     return class UserPage extends Controller {
 
         /**
@@ -87,16 +88,16 @@ define('app/Controllers/UserPage.js', [
                             ${new Message(this.postsData, 'post')}
                         </aside>
                         <div>
-                            ${new ProfileAvatar()}
+                            ${new Photo("assets/img/people-square.jpg",'l')}
                             ${new ProfileActions()}
                             ${new Message(this.messagesData, 'message')}
                         </div>
                     </section>
                 </div>
             `;
-
         }
 
     }
 
 });
+
