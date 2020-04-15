@@ -1,11 +1,13 @@
-define('app/Components/Component.js', function () {
+define('app/Components/Component.js',['app/Components/ComponentController.js'], function (ComponentController) {
 
     return class Component {
 
         /**
          * Создание и инициализация объектов
          */
-        constructor() {}
+        constructor() {
+            return (new ComponentController()).addModule(this);
+        }
 
         /**
          * Переопределение метода, возвращающая строку

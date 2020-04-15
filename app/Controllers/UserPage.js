@@ -1,5 +1,6 @@
 define('app/Controllers/UserPage.js', [
     "app/Controllers/Controller.js",
+    "app/Components/ComponentController.js",
     "app/Components/Header.js",
     "app/Components/ProfileInfo.js",
     "app/Components/ProfilePhotos.js",
@@ -9,7 +10,7 @@ define('app/Controllers/UserPage.js', [
     'css!assets/libs/normalize/normalize.css',
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
-], function (Controller, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Message) {
+], function (Controller, ComponentController, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Message) {
 	const user = {
         id: 1,
         firstName: 'Эммелин',
@@ -70,14 +71,6 @@ define('app/Controllers/UserPage.js', [
                 date:"Вчера 16:10",
                 text:"Я к вам пишу — чего же боле? Что я могу ещё сказать? Теперь, я знаю, в вашей воле Меня презреньем наказать.",
             }]
-            this.component = {
-                profileInfo: new ProfileInfo(user),
-                profilePhoto: new ProfilePhotos(),
-                message1: new Message(this.postsData, 'post'),
-                profileAvatar: new ProfileAvatar(),
-                profileActions: new ProfileActions(),
-                message2: new Message(this.messagesData, 'message')
-            }
         }
 
         /**
@@ -91,14 +84,14 @@ define('app/Controllers/UserPage.js', [
                     ${new Header()}
                     <section class="layout">
                         <aside>
-                            ${this.component.profileInfo}
-                            ${this.component.profilePhoto}
-                            ${this.component.message1}
+                            ${new ProfileInfo(user)}
+                            ${new ProfilePhotos()}
+                            ${new Message(this.postsData, 'post')}
                         </aside>
                         <div>
-                            ${this.component.profileAvatar}
-                            ${this.component.profileActions}
-                            ${this.component.message2}
+                            ${new ProfileAvatar()}
+                            ${new ProfileActions()}
+                            ${new Message(this.messagesData, 'message')}
                         </div>
                     </section>
                 </div>
@@ -107,9 +100,9 @@ define('app/Controllers/UserPage.js', [
         }
         
         afterRender() {
-            let comp = this.component;
-            Object.keys(comp).forEach(function (key){
-                comp[key].afterRender();
+            let list = (new ComponentController()).listModule;
+            list.forEach(name => {
+                name.afterRender();
             });
         }
 
