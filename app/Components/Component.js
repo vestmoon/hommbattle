@@ -20,6 +20,8 @@ define('app/Components/Component.js', function () {
          * @returns {string}
          */
         render() {}
+        
+        afterRender() {}
 
     }
 

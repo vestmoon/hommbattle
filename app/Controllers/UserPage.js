@@ -70,7 +70,14 @@ define('app/Controllers/UserPage.js', [
                 date:"Вчера 16:10",
                 text:"Я к вам пишу — чего же боле? Что я могу ещё сказать? Теперь, я знаю, в вашей воле Меня презреньем наказать.",
             }]
-
+            this.component = {
+                profileInfo: new ProfileInfo(user),
+                profilePhoto: new ProfilePhotos(),
+                message1: new Message(this.postsData, 'post'),
+                profileAvatar: new ProfileAvatar(),
+                profileActions: new ProfileActions(),
+                message2: new Message(this.messagesData, 'message')
+            }
         }
 
         /**
@@ -84,19 +91,26 @@ define('app/Controllers/UserPage.js', [
                     ${new Header()}
                     <section class="layout">
                         <aside>
-                            ${new ProfileInfo(user)}
-                            ${new ProfilePhotos()}
-                            ${new Message(this.postsData, 'post')}
+                            ${this.component.profileInfo}
+                            ${this.component.profilePhoto}
+                            ${this.component.message1}
                         </aside>
                         <div>
-                            ${new ProfileAvatar()}
-                            ${new ProfileActions()}
-                            ${new Message(this.messagesData, 'message')}
+                            ${this.component.profileAvatar}
+                            ${this.component.profileActions}
+                            ${this.component.message2}
                         </div>
                     </section>
                 </div>
             `;
 
+        }
+        
+        afterRender() {
+            let comp = this.component;
+            Object.keys(comp).forEach(function (key){
+                comp[key].afterRen();
+            });
         }
 
     }
