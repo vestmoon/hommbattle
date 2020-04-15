@@ -31,6 +31,7 @@
 }
 /*самая большая фотка*/
 .size_xl {
-  width: 640px;
+  width: 640;
+  max-width: 100%;
   height: auto;
 }
