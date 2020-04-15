@@ -17,17 +17,22 @@
     height: 150px;
     width: auto;
     margin: 5px 4px 10px 4px;
-    border-radius: 3%;
  }
  /*большая фотка (по умолчанию)*/
 .l-photo{  
-    /* object-fit: cover; */
+    object-fit: cover;
     height: 290px;
     width: auto;
-    border-radius: 3%;
+    margin: 10px 5px 0px 5px;
+}
+ /*самая большая фотка*/
+ .xl-photo{  
+    object-fit: cover;
+    width: 640px;
+    height: auto;
     margin: 10px 5px 0px 5px;
 }
 /*курсор при наведении*/
-.xs-photo:hover, .s-photo:hover, .m-photo:hover, .l-photo:hover{
+.xs-photo:hover, .s-photo:hover, .m-photo:hover, .l-photo:hover, .xl-photo:hover{
     cursor: pointer;
 }
