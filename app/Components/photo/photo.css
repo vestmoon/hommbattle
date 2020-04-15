@@ -1,6 +1,7 @@
 /*общий класс фото*/
 .photo {
   object-fit: cover;
+  width: 100%;
 }
 .photo:hover {
   cursor: pointer;
@@ -11,26 +12,26 @@
 }
 /*самая маленькая круглая фотка*/
 .size_xs {
-  width: 35px;
-  height: 35px;
+  max-width: 35px;
+  max-height: 35px;
 }
 /*просто маленькая круглая фотка*/
 .size_s {
-  width: 45px;
-  height: 45px;
+  max-width: 45px;
+  max-height: 45px;
 }
 /*средняя квадратная фотка*/
 .size_m {
-  height: 150px;
+  max-height: 150px;
   width: auto;
 }
 /*большая фотка (по умолчанию)*/
 .size_l {
-  height: 280px;
+  max-height: 280px;
   width: auto;
 }
 /*самая большая фотка*/
 .size_xl {
-  width: 640px;
+  max-width: 640px;
   height: auto;
 }

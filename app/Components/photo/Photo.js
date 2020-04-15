@@ -27,9 +27,9 @@ define("app/Components/photo/Photo.js", [
      * @returns {string}
      */
     render() {
-      return ` <div class = "bloc_${this.size}">
+      return `
           <img src="${this.url}" class='photo size_${this.size} ${this.round()}' alt="Photo">
-               </div>`;
+          `;
     }
   };
 });
