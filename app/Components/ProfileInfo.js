@@ -3,23 +3,18 @@ define(
         'app/Components/Component.js',
         'css!app/Components/ProfileInfo.css'
     ], function (Component) {
-		const STYLEPATH = "css";
+        
 		const MILLISECONDS = (60 * 60 * 24 * 1000 * 365);
+        
         return class ProfileInfo extends Component {
-            
             /**
              * Инициализация компонента
              */
             constructor(data) {
-
-                // Функция, вызывающая родительский конструктор
                 super();
                 this.data = data;
             }
             
-            get fullname() {
-                return `${this.data.firstName} ${this.data.lastName}`
-            }
             // Приводим дату рождения к виду "дата месяц, кол-во лет"
             get birthday(){
                 let months = [ "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" ];
@@ -36,7 +31,7 @@ define(
             // Добавление/Удаление события на кнопку Показать/Скрыть подробности
             addEvents() {
                 let button = document.querySelector(".button__user_blue");
-                button.addEventListener("click", this.moreButton);
+                button.addEventListener("click", () => this.moreButton());
             }
 
             removeEvents() {
@@ -56,22 +51,13 @@ define(
                         block.style.display = "block";
                         button.innerText = "Скрыть подробности";
                         break;
+                    default:
+                        block.style.display = "block";
+                        button.innerText = "Скрыть подробности";
                 }
             }
 
             // Метод для отрисовки основной и дополнительной информации 
-            info(type) {
-                let block = "";
-                if (type=='main'){
-                    block += this.renderInfo("День рождения", this.birthday);
-                    block += this.renderInfo("Город", this.data.city);
-                } else if (type=='additional'){
-                    block += this.renderInfo("Образование", `${this.data.edu} ${this.data.eduYear}`);
-                    block += this.renderInfo("Место работы", this.data.jobName);
-                }
-                return block;
-            }
-
             renderInfo(title, text) {
                 return `
                     <div class="user__info">
@@ -86,16 +72,26 @@ define(
              * @returns {string}
              */
             render() {
-                // Возвращение рендера
+                let mainInfo = "";
+                let additionalInfo = "";
+                mainInfo += this.renderInfo("День рождения", this.birthday);
+                mainInfo += this.renderInfo("Город", this.data.city);
+                additionalInfo += this.renderInfo("Образование", `${this.data.edu} ${this.data.eduYear}`);
+                additionalInfo += this.renderInfo("Место работы", this.data.jobName); 
+                
                 return (`
                     <div class="user">
-                        <h2 class="user__name">${this.fullname}</h2>
+                        <h2 class="user__name">${this.data.firstName} ${this.data.lastName}</h2>
                         <p class="user__status">${this.data.status}</p>
-                        ${this.info('main')}
+                        ${mainInfo}
                         <p class="button button__user button__user_blue">Подробнее</p>
-                        <div class="user__fullinfo">${this.info('additional')}</div>
+                        <div class="user__fullinfo">${additionalInfo}</div>
                     </div>
                 `);
+            }
+            
+            afterRender() {
+                this.addEvents();
             }
 
         };

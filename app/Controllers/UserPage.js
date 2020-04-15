@@ -10,17 +10,6 @@ define('app/Controllers/UserPage.js', [
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
 ], function (Controller, Header, ProfileInfo, ProfilePhotos, Photo, ProfileActions, Message) {
-	const user = {
-        id: 1,
-        firstName: 'Эммелин',
-        lastName: 'Лоуренс',
-        bDay: '13.05.1998',
-        city: 'Колумбус',
-        status: "Похоже, в наши дни многие крупные газеты стараются ответить на один вопрос: что самое плохое сегодня случилось на Земле?",
-        edu: 'Университет Финикс',
-        eduYear: 2016,
-        jobName: "Тесла"
-    };
 
     return class UserPage extends Controller {
 
@@ -31,6 +20,17 @@ define('app/Controllers/UserPage.js', [
 
             // Функция, вызывающая родительский конструктор
             super();
+            this.user = {
+                id: 1,
+                firstName: 'Эммелин',
+                lastName: 'Лоуренс',
+                bDay: '13.05.1998',
+                city: 'Колумбус',
+                status: "Похоже, в наши дни многие крупные газеты стараются ответить на один вопрос: что самое плохое сегодня случилось на Земле?",
+                edu: 'Университет Финикс',
+                eduYear: 2016,
+                jobName: "Тесла"
+            };
             this.postsData = [{
                 avatar:"assets/img/1_square.jpg",
                 name:"Джон Сноу",
@@ -70,7 +70,6 @@ define('app/Controllers/UserPage.js', [
                 date:"Вчера 16:10",
                 text:"Я к вам пишу — чего же боле? Что я могу ещё сказать? Теперь, я знаю, в вашей воле Меня презреньем наказать.",
             }]
-
         }
 
         /**
@@ -84,7 +83,7 @@ define('app/Controllers/UserPage.js', [
                     ${new Header()}
                     <section class="layout">
                         <aside>
-                            ${new ProfileInfo(user)}
+                            ${new ProfileInfo(this.user)}
                             ${new ProfilePhotos()}
                             <div class="block">
                                 ${new Message(this.postsData, 'post')}
