@@ -16,7 +16,7 @@ define("app/Components/gallery/Gallery.js", [
     renderPhoto() {
       let photo = "";
       for (let i = 0; i < this.photos.length; i++) {
-        photo += `${new Photo(this.photos[i], "m")}`;
+        photo += `<div class="gallery__item"> ${new Photo(this.photos[i], "m")} </div>`;
       }
       return photo;
     }
@@ -26,7 +26,10 @@ define("app/Components/gallery/Gallery.js", [
      * @returns {string}
      */
     render() {
-      return this.renderPhoto();
+      
+      return `<div class="gallery">
+                ${this.renderPhoto()}
+              </div>`
     }
   };
 });
