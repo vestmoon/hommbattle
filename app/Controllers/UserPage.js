@@ -53,13 +53,13 @@ define('app/Controllers/UserPage.js', [
             }]
 
             this.messagesData = [{
-                avatar:"assets/img/6_square.jpg",
+                avatar:"assets/img/7_square.jpg",
                 name:"Дэвид Грей",
                 date:"Вчера 16:10",
                 text:"Давно тебя не было в уличных гонках!",
             },
             {
-                avatar:"assets/img/7_square.jpg",
+                avatar:"assets/img/6_square.jpg",
                 name:"Мак ДеМарко",
                 date:"Вчера 16:10",
                 text:"Ты уже послушала мой новый альбом? Тебе понравится, обещаю.",
@@ -86,12 +86,16 @@ define('app/Controllers/UserPage.js', [
                         <aside>
                             ${new ProfileInfo(user)}
                             ${new ProfilePhotos()}
-                            ${new Message(this.postsData, 'post')}
+                            <div class="block">
+                                ${new Message(this.postsData, 'post')}
+                            </div>
                         </aside>
                         <div>
                             ${new Photo("assets/img/people-square.jpg",'l')}
                             ${new ProfileActions()}
-                            ${new Message(this.messagesData, 'message')}
+                            <div class="block">
+                                ${new Message(this.messagesData, 'message')}
+                            </div>
                         </div>
                     </section>
                 </div>
