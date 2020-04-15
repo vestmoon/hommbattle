@@ -1,4 +1,14 @@
 .gallery{
+    min-width: 100%;
     display: flex;
-    justify-content: space-around;
+    overflow-x: auto;
 }
+.gallery__item{
+    margin: 0 5px;
+}
+.gallery:hover{
+    cursor: pointer;
+}
+.gallery::-webkit-scrollbar {
+    display: none;
+  }

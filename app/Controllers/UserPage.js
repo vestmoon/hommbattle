@@ -76,6 +76,10 @@ define('app/Controllers/UserPage.js', [
                 "assets/img/2_square.jpg",
                 "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
+                "assets/img/4_square.jpg",
+                "assets/img/4_square.jpg",
+                "assets/img/4_square.jpg",
+                "assets/img/4_square.jpg",
             ];
         }
 
@@ -91,7 +95,7 @@ define('app/Controllers/UserPage.js', [
                     <section class="layout">
                         <aside>
                             ${new ProfileInfo(this.user)}
-                            <div class="block block_gallery">
+                            <div class="block">
                                 ${new Gallery(this.photos)}
                             </div>
                             <div class="block">

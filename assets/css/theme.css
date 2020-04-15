@@ -126,10 +126,6 @@ section.layout {
   cursor: pointer;
   text-decoration: none;
 }
-.block_gallery{
-  display: flex;
-  justify-content: space-around;
-}
 
 /*
  * Details Block
