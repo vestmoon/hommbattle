@@ -1,6 +1,5 @@
 define('app/Controllers/UserPage.js', [
     "app/Controllers/Controller.js",
-    "app/Components/ComponentController.js",
     "app/Components/Header.js",
     "app/Components/ProfileInfo.js",
     "app/Components/ProfilePhotos.js",
@@ -10,19 +9,7 @@ define('app/Controllers/UserPage.js', [
     'css!assets/libs/normalize/normalize.css',
     'css!assets/libs/fa/scss/fontawesome.css',
     'css!assets/css/theme.css',
-], function (Controller, ComponentController, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Message) {
-	const user = {
-        id: 1,
-        firstName: 'Эммелин',
-        lastName: 'Лоуренс',
-        bDay: '13.05.1998',
-        city: 'Колумбус',
-        status: "Похоже, в наши дни многие крупные газеты стараются ответить на один вопрос: что самое плохое сегодня случилось на Земле?",
-        edu: 'Университет Финикс',
-        eduYear: 2016,
-        jobName: "Тесла"
-    };
-
+], function (Controller, Header, ProfileInfo, ProfilePhotos, ProfileAvatar, ProfileActions, Message) {
     return class UserPage extends Controller {
 
         /**
@@ -32,6 +19,17 @@ define('app/Controllers/UserPage.js', [
 
             // Функция, вызывающая родительский конструктор
             super();
+            this.user = {
+                id: 1,
+                firstName: 'Эммелин',
+                lastName: 'Лоуренс',
+                bDay: '13.05.1998',
+                city: 'Колумбус',
+                status: "Похоже, в наши дни многие крупные газеты стараются ответить на один вопрос: что самое плохое сегодня случилось на Земле?",
+                edu: 'Университет Финикс',
+                eduYear: 2016,
+                jobName: "Тесла"
+            };
             this.postsData = [{
                 avatar:"assets/img/1_square.jpg",
                 name:"Джон Сноу",
@@ -84,7 +82,7 @@ define('app/Controllers/UserPage.js', [
                     ${new Header()}
                     <section class="layout">
                         <aside>
-                            ${new ProfileInfo(user)}
+                            ${new ProfileInfo(this.user)}
                             ${new ProfilePhotos()}
                             ${new Message(this.postsData, 'post')}
                         </aside>
@@ -97,13 +95,6 @@ define('app/Controllers/UserPage.js', [
                 </div>
             `;
 
-        }
-        
-        afterRender() {
-            let list = (new ComponentController()).listModule;
-            list.forEach(name => {
-                name.afterRender();
-            });
         }
 
     }

@@ -31,7 +31,7 @@ define(
             // Добавление/Удаление события на кнопку Показать/Скрыть подробности
             addEvents() {
                 let button = document.querySelector(".button__user_blue");
-                button.addEventListener("click", this.moreButton);
+                button.addEventListener("click", () => this.moreButton());
             }
 
             removeEvents() {
@@ -51,6 +51,9 @@ define(
                         block.style.display = "block";
                         button.innerText = "Скрыть подробности";
                         break;
+                    default:
+                        block.style.display = "block";
+                        button.innerText = "Скрыть подробности";
                 }
             }
 
@@ -85,6 +88,10 @@ define(
                         <div class="user__fullinfo">${additionalInfo}</div>
                     </div>
                 `);
+            }
+            
+            afterRender() {
+                this.addEvents();
             }
 
         };

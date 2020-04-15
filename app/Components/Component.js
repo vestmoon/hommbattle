@@ -1,4 +1,4 @@
-define('app/Components/Component.js',['app/Components/ComponentController.js'], function (ComponentController) {
+define('app/Components/Component.js',['app/Controllers/ComponentController.js'], function (ComponentController) {
 
     return class Component {
 
@@ -6,7 +6,7 @@ define('app/Components/Component.js',['app/Components/ComponentController.js'], 
          * Создание и инициализация объектов
          */
         constructor() {
-            return (new ComponentController()).addModule(this);
+            return ComponentController.addModule(this);
         }
 
         /**
@@ -14,16 +14,16 @@ define('app/Components/Component.js',['app/Components/ComponentController.js'], 
          * @returns {*}
          */
         toString() {
+            this.beforeRender();
             return this.render();
         }
 
-        /**
-         * Рендеринг компонента
-         * @returns {string}
-         */
+        beforeRender() {}
+        
         render() {}
         
         afterRender() {}
+        
 
     }
 
