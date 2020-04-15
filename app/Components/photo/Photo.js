@@ -8,21 +8,27 @@ define("app/Components/photo/Photo.js", [
      *@param {url} url - url фото
      *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;), 'l' (width: 230px)
      */
-    constructor(url, size) {
+    constructor(url = "app/Components/photo/default_photo.jpg", size = "l") {
       super();
       this.url = url;
       this.size = size;
-    }ы
+    }
+
+    round(){
+      let mod_round ='';
+      if(this.size == 'xs' || this.size == 's')
+      {
+        mod_round = 'photo_round';
+      }
+      return mod_round;
+    }
 
     /**
      * Рендеринг компонента
      * @returns {string}
      */
     render() {
-      return `
-             <img src="${
-               this.url || "app/Components/photo/default_photo.jpg"
-             }" class='${this.size || "l"}-photo' alt="Photo">`;
+      return ` <img src="${this.url}" class='photo size_${this.size} ${this.round()}' alt="Photo">`;
     }
   };
 });
