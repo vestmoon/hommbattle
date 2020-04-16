@@ -104,7 +104,9 @@ define('app/Controllers/UserPage.js', [
                     ${new Header()}
                     <section class="layout">
                         <aside>
-                            ${new ProfileInfo(this.user)}
+							<div class="block">
+								${new ProfileInfo(this.user)}
+							</div>
                             <div class="block">
                                 ${new Gallery(this.photos)}
                             </div>
