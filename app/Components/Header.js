@@ -2,8 +2,7 @@ define(
     'app/Components/Header.js', [
         'app/Components/Component.js',
         'app/Components/photo/Photo.js',
-        'css!app/Components/Header.css',
-        'css!app/Components/photo/photo.css'
+        'css!app/Components/Header.css'
     ], function (Component, Photo) {
 
         return class Header extends Component {
