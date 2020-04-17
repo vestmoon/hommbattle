@@ -10,7 +10,7 @@ define(
             /**
              * Инициализация компонента
              */
-            constructor(status = 'В сети', photoUrl = 'app/Components/photo/default_photo.jpg') {
+            constructor(status = 'В сети', photoUrl , navItems) {
 
                 // Функция, вызывающая родительский конструктор
                 super();
@@ -18,21 +18,22 @@ define(
                 this.status = status;
                 this.photoUrl = photoUrl;
                 this._clickHandler = this._clickHandler.bind(this);
-                this.navItems = [];
-
-                this.addItemMenu('Редактировать','#');
-                this.addItemMenu('Настройки','#');
-            }
-
-
-            /**
-             * Добавить ссылку в меню
-             * @param {String} linkName - Имя ссылки
-             * @param {String} link - ссылка
-             */
-            addItemMenu(linkName,link) {
-                let navItemString = `<a class="nav-link" href="${link}">${linkName}</a>` 
-                this.navItems.push(navItemString);
+                this.navItems = [   
+                    {
+                        linkName: 'Редактировать',
+                        link: '#'
+                    },
+                    {
+                       linkName: 'Настройки',
+                       link: '#'
+                    }
+                ];
+                if(navItems) {
+                    this.navItems = [];
+                    navItems.forEach((item) =>  {
+                        this.navItems.push(item);
+                    })
+                }
             }
 
             /**
@@ -41,7 +42,7 @@ define(
             renderNavItems() {
                 let result = '';
                 this.navItems.forEach((item) =>  {
-                    result += item;
+                    result +=  `<a class="nav-link" href="${item.link}">${item.linkName}</a>` ;
                 })
                 return result;
             }
@@ -50,8 +51,7 @@ define(
              * Обработчик клика по иконке меню
              */
             _clickHandler() {
-                let headerProfile = document.querySelector(".header__profile");
-                if(event.target && !headerProfile.contains(event.target)) {
+                if(event.target && !document.querySelector(".header__profile").contains(event.target)) {
                     this.toggleHeaderMenu();
                    }
             }
@@ -78,8 +78,8 @@ define(
              * Вешаю обработчик клика по иконке меню
              */
             afterRender() {
-                 let headerProfile = document.querySelector(".header__profile");
-                headerProfile.addEventListener("click", () => this.toggleHeaderMenu());
+                 document.querySelector(".header__profile").addEventListener("click", 
+                 () => this.toggleHeaderMenu());
             }
 
 
@@ -103,7 +103,7 @@ define(
                                     <span class="settings-dot"></span>
                                 </span>
                                 <div class="profile__nav">
-                                    ${this.renderNavItems()}
+                                    ${this.renderNavItems(this.navItems)}
                                     <hr class="nav-link__line">
                                     <a class="nav-link" href="#">Выйти</a>
                                 </div>
