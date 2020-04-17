@@ -103,7 +103,7 @@ define(
                                     <span class="settings-dot"></span>
                                 </span>
                                 <div class="profile__nav">
-                                    ${this.renderNavItems(this.navItems)}
+                                    ${this.renderNavItems()}
                                     <hr class="nav-link__line">
                                     <a class="nav-link" href="#">Выйти</a>
                                 </div>
