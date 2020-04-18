@@ -39,16 +39,15 @@ define("app/Components/photo/Photo.js", [
 
       render() {
         return `
-            <img src="${this.url}" class='photo size_${this.size} ${this.round()}' alt="Photo">
+            <img src="${this.url}" id=${this.id} class='photo size_${this.size} ${this.round()}' alt="Photo">
             `;
       }
 
       afterRender() {
+        console.log(this);
         if (this.size == 'm' || this.size == 'l' || this.size == 'xl') {
-          let click_photo = document.querySelectorAll(`.size_${this.size}`);
-          for(let i = 0; i < click_photo.length; i++) {
-            click_photo[i].addEventListener("click", this.openWindow);
-          }
+          let click_photo = document.getElementById(`${this.id}`);
+          click_photo.addEventListener("click", this.openWindow);
         }
       }
 
