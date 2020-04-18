@@ -104,7 +104,7 @@ define('app/Controllers/UserPage.js', [
                         </aside>
                         <div> 
                             <div class="block">
-                                ${new Photo("assets/img/people-square.jpg",'l')}
+                                ${new Photo("assets/img/people.jpg",'l')}   
                             </div>
                             ${new ProfileActions()}
                             <div class="block">

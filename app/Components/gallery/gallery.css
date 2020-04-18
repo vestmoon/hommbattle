@@ -2,13 +2,14 @@
     min-width: 100%;
     display: flex;
     overflow-x: auto;
+    margin: 0;
 }
 .gallery__item{
-    margin: 0 5px;
-}
-.gallery:hover{
-    cursor: pointer;
+    margin-right: 10px;
+    width: 153px;
+    height: 153px;
 }
 .gallery::-webkit-scrollbar {
     display: none;
   }
+  

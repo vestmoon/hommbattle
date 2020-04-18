@@ -24,7 +24,6 @@ define('app/Components/Component.js',['app/Controllers/ComponentController.js'],
         
         afterRender() {}
         
-
     }
 
 });
