@@ -101,7 +101,7 @@ define('app/Controllers/UserPage.js', [
 
             return `
                <div class="container">
-                    ${new Header()}
+                    ${new Header("assets/img/people.jpg")}
                     <section class="layout">
                         <aside>
 							<div class="block">
