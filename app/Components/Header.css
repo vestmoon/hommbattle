@@ -1,0 +1,143 @@
+header {
+	width: 100%;
+}
+
+.header__wraper {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 0 10px;
+	border-radius: 0 0 5px;
+}
+
+.header_blue {
+	background-color: #5682a3;
+}
+.header_rounded {
+	border-radius: 0 0 5px 5px;
+}
+
+.header__status {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.profile__edit {
+	display: none;
+	line-height: 30px;
+	color: #999;
+}
+.header__profile {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	align-items: center;
+	height: 100%;
+	cursor: pointer;
+	transition: opacity .3s ease-in-out;
+}
+
+
+.header__profile:hover .profile__settings {
+	width: 20px;
+}
+.header__profile:hover .settings-dot {
+	border-radius: 15px;
+	height: 2px;
+	width: 100%;
+}
+
+.profile__settings {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: space-evenly;
+	-ms-flex-pack: space-evenly;
+	justify-content: space-evenly;
+	height: 30px;
+	margin:0 10px;
+	width: 5px;
+	transition: width .3s ease-in-out;
+}
+.profile__nav {
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+	top: 40px;
+	z-index: 2;
+	right: -15px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid #c5d0db;
+	padding: 5px 0; 
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	transition: opacity .2s ease-in-out,top .2s ease-in-out,visibility .2s ease-in-out;
+}
+.profile__nav.visible {
+	visibility: visible;
+	opacity: 1;
+	top: 50px;
+}
+.nav-link {
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 15px;
+	font-size: 15px;
+	color: #2a5885;
+	white-space: nowrap;
+	text-decoration: none;
+}
+.nav-link:hover {
+	background-color: #e4eaf0;
+}
+.nav-link__line {
+	color: #dbe4ec;
+	width: 80%;
+	margin: 5px auto;
+}
+.profle__wraper {
+	overflow: hidden;
+	position: relative;
+}
+.profle__wraper:hover .edit__img {
+	height: 40px;
+}
+.edit__img {
+	background-color: rgba(0,0,0,.6);
+	height: 0px;
+	width: 100%;
+	position: absolute;
+	bottom: 4px;
+	-webkit-transition: height .4s ease;
+	-o-transition: height .4s ease;
+	transition: height .4s ease;
+}
+.edit-photo-tool {
+	display: block;
+	float: right;
+	padding: 10px;
+}
+.settings-dot {
+	display: block;
+	width: 5px;
+	height: 5px;
+	background-color: #fff;
+	border-radius: 50%;
+	transition: width .3s ease-in-out;
+	transition-delay: .1s;
+}
