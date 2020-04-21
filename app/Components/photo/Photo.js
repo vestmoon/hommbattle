@@ -44,7 +44,6 @@ define("app/Components/photo/Photo.js", [
       }
 
       afterRender() {
-        console.log(this);
         if (this.size == 'm' || this.size == 'l' || this.size == 'xl') {
           let click_photo = document.getElementById(`${this.id}`);
           click_photo.addEventListener("click", this.openWindow);

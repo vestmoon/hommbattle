@@ -17,7 +17,6 @@ define('app/Controllers/UserPage.js', [
          * Инициализация компонента
          */
         constructor() {
-
             // Функция, вызывающая родительский конструктор
             super();
 
@@ -86,9 +85,17 @@ define('app/Controllers/UserPage.js', [
                 "assets/img/2_square.jpg",
                 "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
-                "assets/img/4_square.jpg",
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
             ];
         }
