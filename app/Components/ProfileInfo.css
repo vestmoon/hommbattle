@@ -24,6 +24,7 @@
     text-align: center;
     transition: background 0.3s ease-in-out; 
     border-radius: 5px;
+    user-select: none;
 }
 
 .button__user_blue:hover {
@@ -33,6 +34,10 @@
 
 .user__fullinfo {
     display:none;
+}
+
+.user__fullinfo.visible {
+    display:block;
 }
 
 .user__info {

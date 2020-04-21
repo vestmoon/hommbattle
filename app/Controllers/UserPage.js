@@ -21,19 +21,6 @@ define('app/Controllers/UserPage.js', [
             // Функция, вызывающая родительский конструктор
             super();
 
-            // Данные о пользователе
-            this.user = {
-                id: 1,
-                firstName: 'Эммелин',
-                lastName: 'Лоуренс',
-                bDay: '13.05.1998',
-                city: 'Колумбус',
-                status: "Похоже, в наши дни многие крупные газеты стараются ответить на один вопрос: что самое плохое сегодня случилось на Земле?",
-                edu: 'Университет Финикс',
-                eduYear: 2016,
-                jobName: "Тесла"
-            };
-
             // Данные о стене
             this.postsData = [
                 {
@@ -105,7 +92,7 @@ define('app/Controllers/UserPage.js', [
                     <section class="layout">
                         <aside>
 							<div class="block">
-								${new ProfileInfo(this.user)}
+								${new ProfileInfo()}
 							</div>
                             <div class="block">
                                 ${new Gallery(this.photos)}
