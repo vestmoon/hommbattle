@@ -56,6 +56,10 @@ header {
 	width: 100%;
 }
 
+.header .photo {
+	width: 35px;
+}
+
 .profile__settings {
 	position: relative;
 	display: -webkit-box;
