@@ -18,7 +18,7 @@ define('app/Controllers/UserPage.js', [
          */
         constructor() {
             // Функция, вызывающая родительский конструктор
-            super();
+            super();     
 
             // Данные о пользователе
             this.user = {
@@ -98,6 +98,9 @@ define('app/Controllers/UserPage.js', [
                 "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
             ];
+
+            //Путь до фотографии пользователя
+            this.photoUser = 'http://tensor-school.herokuapp.com/user/photo/115';
         }
 
         /**
@@ -122,8 +125,8 @@ define('app/Controllers/UserPage.js', [
                             </div>
                         </aside>
                         <div> 
-                            <div class="block">
-                                ${new Photo("assets/img/people.jpg",'l')}   
+                            <div class="block  block_pos">
+                                ${new Photo(this.photoUser,'l')}   
                             </div>
                             ${new ProfileActions()}
                             <div class="block">

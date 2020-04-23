@@ -12,7 +12,7 @@ define("app/Components/gallery/Gallery.js", [
       super();
       this.photos = photos;
       this.count = photos.length;
-      this.step = 160;
+      this.step = 163;
       this.visible_photos = 4;
     }
 

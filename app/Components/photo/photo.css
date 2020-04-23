@@ -33,9 +33,51 @@
 /*большая фотка (по умолчанию)*/
 .size_l {
   max-height: 340px;
+  position: relative;
 }
 /*самая большая фотка*/
 .size_xl {
   max-width: 640px;
   height: auto;
 }
+.edit-field{
+  display: none;
+  justify-content: space-around;
+  width: 100%;
+  height: 50px;
+  margin-top: -40px;
+  margin-left: -15px;
+  background-color: white;
+  opacity: 90%;
+  position: absolute;
+}
+.size_l:hover + .edit-field{
+  display: flex;
+}
+.edit-field:hover{
+  cursor: pointer;
+  display: flex;
+}
+.load-file{
+  display: none;
+}
+.subm{
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: white;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.load-img{
+  width: 30px;
+  height: 30px;
+  opacity: 90%;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.load-img:hover, .subm:hover{
+  cursor: pointer;
+}
+
