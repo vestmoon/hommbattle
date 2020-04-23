@@ -10,7 +10,7 @@ define(
             /**
              * Инициализация компонента
              */
-            constructor(status = 'В сети', photoUrl , navItems) {
+            constructor(photoUrl, status = 'В сети', navItems) {
 
                 // Функция, вызывающая родительский конструктор
                 super();
