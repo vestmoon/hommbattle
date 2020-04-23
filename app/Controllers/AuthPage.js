@@ -20,7 +20,7 @@ define('app/Controllers/AuthPage.js', [
          * Событие, когда отправляется форма
          * @param {Event} e
          */
-        _formSubmit(e) {
+        async _formSubmit(e) {
 
             // Действие по умолчанию не должно выполняться так, как обычно
             e.preventDefault();
@@ -42,26 +42,30 @@ define('app/Controllers/AuthPage.js', [
                 credentials: 'include'
             };
 
-            // Отправка запроса
-            fetch(url, options)
-                .then(function (response) {
-                    if(response.status === 200) {
-                        location.reload();
-                    } else {
-                        alerts.innerHTML = `
-                            <div class="alert alert_error">
-                                Введен неверный логин или пароль.
-                            </div>
-                        `;
-                    }
-                })
-                .catch(function () {
+            try {
+
+                // Выполнение запроса
+                const response = await fetch(url, options);
+                const code = response.status;
+
+                // Проверка корректности кода
+                if(code === 200) {
+                    location.reload();
+                } else {
                     alerts.innerHTML = `
                         <div class="alert alert_error">
-                            Упс, похоже, что-то пошло не так.
+                            Введен неверный логин или пароль.
                         </div>
                     `;
-                });
+                }
+
+            } catch (e) {
+                alerts.innerHTML = `
+                    <div class="alert alert_error">
+                        Упс, похоже, что-то пошло не так.
+                    </div>
+                `;
+            }
 
         }
 
