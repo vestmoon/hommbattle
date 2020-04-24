@@ -7,9 +7,9 @@ define("app/Components/photo/Photo.js", [
     /**
      *
      *@param {url} url - url фото
-     *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;), 'l' (width: 230px), 'xl' (width: 640px)
+     *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;) - по умолчанию, 'l' (width: 230px), 'xl' (width: 640px)
      */
-    constructor(url = "app/Components/photo/default_photo.jpg", size = "l") {
+    constructor(url = "app/Components/photo/default_photo.jpg", size = "m") {
       super();
       this.url = url;
       this.size = size;
@@ -24,7 +24,7 @@ define("app/Components/photo/Photo.js", [
     }
 
     /**
-     * 
+     * открытие модального окна с фотографией
      * @param {Event} event 
      */
     openWindow(event) {
@@ -38,26 +38,32 @@ define("app/Components/photo/Photo.js", [
       });
     }
 
+    /**
+     * загрузка новой фотографии профиля
+     */
     avatar() {
       let edit_photo = document.getElementById(`${this.id}`);
       edit_photo.insertAdjacentHTML(
         "afterEnd",
-        `<form class="edit-field"><input name="myFile" class="load-file" type="file" id="fileUpload" accept="image/*"/>
-        <label for ="fileUpload" ><img class="load-img" src="assets/img/icons/download.png"></label>
-        <input class = "subm" type="image" src="assets/img/icons/ok.png"></form>`
+        `<form class="edit-field"><input name="myFile" class="load-file" type="file" id="fileUpload" accept="image/*"/>       
+        <input class = "subm" title="ок" type="image" src="assets/img/icons/ok.png">
+        <label for ="fileUpload" title="загрузить новую фотографию"><img class="load-img" src="assets/img/icons/download.png"></label></form>`
       );
       let edit_field = document.querySelector(".subm");
       edit_field.addEventListener("click", this.handleImageUpload);
     }
 
+    /**
+     * асинхронная функция обновления фотографии на сервере
+     */
     handleImageUpload = async (event) => {
       event.preventDefault();
       let selectedFile = document.getElementById("fileUpload").files[0];
       const formData = new FormData();
       formData.append("myFile", selectedFile);
 
-      if(!selectedFile) {
-        alert("Выберите файл!");
+      if(!selectedFile || selectedFile == this.url) {
+        alert("Выберите файл для загрузки фотографии.");
       }
 
       else {
@@ -75,8 +81,10 @@ define("app/Components/photo/Photo.js", [
             console.error("ERROR!!!!!");
           })
 
-          setTimeout( () => {let new_src = fetch(`${this.url}`, {"credentials": "include"})
-          .then(res =>  document.querySelector('.size_l').src = res.url);}, 1000);         
+          setTimeout( () => { let new_src = fetch(`${this.url}`, {"credentials": "include"})
+          .then( res => { document.querySelector('.size_l').src = res.url;
+          document.querySelector('.size_xs').src = res.url } );
+        }, 1000);         
       }
     };
 

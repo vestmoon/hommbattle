@@ -36,7 +36,7 @@ define("app/Components/modalWindow/ModalWindow.js", [
         <button class="btn"><img class="btn-img" src="assets/img/icons/x_close.png"></button>
         </div>
         <div class="modal">
-          <img class="photo photo_curs size_xl" src="${this.url}">
+          <img class="photo photo_curs size_mod" src="${this.url}">
         </div>`;
     }
    
