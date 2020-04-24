@@ -32,7 +32,6 @@ define(
         super();
         this.posts = posts;
         this.type = type;
-        this.isDataUpdated = false;
         this.updMessages = [];
       }
 
@@ -41,6 +40,7 @@ define(
        * @returns {string}
        */
       render() {
+        this.getMessages()
         // Возвращение рендера
         return `
           <div class="messages">
@@ -52,7 +52,6 @@ define(
        * Рендер постов 
        */
       renderPosts() {
-        this.getMessages()
         let posts = '';
         this.posts.forEach(post => {
           posts += `
@@ -82,33 +81,53 @@ define(
         </div>
         `;
       }
+      /**
+       * Получем id авторизованного пользователя
+       */
+      async getCurrentUser() {
+        const url = "https://tensor-school.herokuapp.com/user/current";
+        let response = await fetch(url, {
+          "credentials": "include"
+        });
+        let result = await response.json();
+        return result.id
+      }
 
-      async getMessages() { 
-        const url = "https://tensor-school.herokuapp.com/message/list/133";
-        let response = await fetch(url,  {"credentials": "include"}); 
-        let result = await response.json(); 
-        
+      /**
+       * Получаем массив сообщений авторизованного пользователя
+       */
+      async getMessages() {
+        const currentUser = await this.getCurrentUser()
+        const url = `https://tensor-school.herokuapp.com/message/list/${currentUser}`;
+        let response = await fetch(url, {
+          "credentials": "include"
+        });
+        let result = await response.json();
+
         await result.messages.reverse().forEach(item => {
           this.updMessages.push({
             avatar: '/assets/img/6_square.jpg',
-            name : "Джон Тестер",
-            date : "Когда-то",
-            text : item.message
+            name: "Джон Тестер",
+            date: "Когда-то",
+            text: item.message
           })
         })
         await this.updateMessages();
       }
 
+      /**
+       * Апдейт сообщений. Заменяем заглушки, сообщениями полученными с сервера
+       */
       updateMessages() {
         let i = 0;
         if (this.type == "message") {
           const block = document.getElementById(this.id)
           const messages = block.querySelectorAll('.post')
-          messages.forEach(message => {
-            message.querySelector('.post-head__img').innerHTML = new Photo(this.updMessages[i].avatar,'s')
-            message.querySelector('.post-head__name a').innerHTML = this.updMessages[i].name;
-            message.querySelector('.post-head__date').innerHTML = this.updMessages[i].date;
-            message.querySelector('.post-head__text').innerHTML = this.updMessages[i].text;
+          messages.forEach(item => {
+            item.querySelector('.post-head__img').innerHTML = new Photo(this.updMessages[i].avatar, 's')
+            item.querySelector('.post-head__name a').innerHTML = this.updMessages[i].name;
+            item.querySelector('.post-head__date').innerHTML = this.updMessages[i].date;
+            item.querySelector('.post-head__text').innerHTML = this.updMessages[i].text;
             i++;
           })
         }
