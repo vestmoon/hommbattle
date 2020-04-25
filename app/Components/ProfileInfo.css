@@ -9,12 +9,50 @@
    -webkit-box-orient: vertical; 
 }
 
+.user__status-area {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 50px;
+    max-height: 200px;
+}
+
+.button__user_status {
+    user-select: none;
+}
+
 .user__status {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     overflow: hidden;
     display: -webkit-box;
    -webkit-line-clamp: 3;
    -webkit-box-orient: vertical;
+}
+
+.user__status-frame {
+    display: none;
+}
+
+.user__status-frame.visible {
+    display: block;
+}
+
+.user__status-change {
+    display: none;
+}
+
+.user__status-change.visible {
+    display: block;
+}
+
+.button__user_status {
+    color: #bbbbbb;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 0;
+}
+
+.button__user_deny {
+    margin-left: 10px;
 }
 
 .button__user_blue {
@@ -24,6 +62,7 @@
     text-align: center;
     transition: background 0.3s ease-in-out; 
     border-radius: 5px;
+    user-select: none;
 }
 
 .button__user_blue:hover {
@@ -33,6 +72,10 @@
 
 .user__fullinfo {
     display:none;
+}
+
+.user__fullinfo.visible {
+    display:block;
 }
 
 .user__info {
