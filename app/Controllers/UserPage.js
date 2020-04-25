@@ -17,7 +17,6 @@ define('app/Controllers/UserPage.js', [
          * Инициализация компонента
          */
         constructor() {
-
             // Функция, вызывающая родительский конструктор
             super();
 
@@ -73,9 +72,17 @@ define('app/Controllers/UserPage.js', [
                 "assets/img/2_square.jpg",
                 "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
-                "assets/img/4_square.jpg",
+                "assets/img/1_square.jpg",
+                "assets/img/2_square.jpg",
+                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
             ];
         }
@@ -88,7 +95,7 @@ define('app/Controllers/UserPage.js', [
 
             return `
                <div class="container">
-                    ${new Header()}
+                    ${new Header("assets/img/people.jpg")}
                     <section class="layout">
                         <aside>
 							<div class="block">
@@ -103,7 +110,7 @@ define('app/Controllers/UserPage.js', [
                         </aside>
                         <div> 
                             <div class="block">
-                                ${new Photo("assets/img/people-square.jpg",'l')}
+                                ${new Photo("assets/img/people.jpg",'l')}   
                             </div>
                             ${new ProfileActions()}
                             <div class="block">
@@ -118,7 +125,7 @@ define('app/Controllers/UserPage.js', [
     }
 
     // Создание и возвращение экземпляра
-    return new UserPage();
+    return UserPage;
 
 });
 

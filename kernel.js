@@ -1,44 +1,47 @@
 /**
- * Получение первого элемент массива
- * @returns {*}
+ * Инициализация приложения
  */
 
-Array.prototype.first = function () {
-    return this[0];
-};
+(async function f() {
+    // Адрес API
+    const url = 'https://tensor-school.herokuapp.com/user/current';
 
-/**
- * Инициализация сайта
- */
-
-require([
-    'app/ComponentStorage.js',
-    'app/Controllers/UserPage.js'
-], function (ComponentStorage) {
-
-    // Авторизация (временно)
-    let urlencoded = new URLSearchParams();
-    urlencoded.append("login", "testlogin");
-    urlencoded.append("password", "123123");
-
-    let requestOptions = {
-        method: 'POST',
-        body: urlencoded,
+    // Опции запроса
+    const options = {
+        method: 'get',
         credentials: 'include'
     };
 
-    fetch("https://tensor-school.herokuapp.com/user/login", requestOptions)
-        .then(response => response.text())
-        .then(result => main())
-        .catch(error => document.body.innerHTML = "Connection error!");
+    // Объект текущего пользователя
+    let user = null;
 
+    try {
 
-    function main() {
-        document.body.innerHTML = ComponentStorage["list"].first();
+        // Выполнение запроса
+        const response = await fetch(url, options);
+        const code = response.status;
 
-        ComponentStorage["list"].forEach(instance => {
-            instance.afterRender();
+        // Проверка корректности кода для авторизованного пользователя
+        if(code === 200) {
+            user = await response.json();
+        }
+
+        // Название подгружаемой страницы
+        const includedPage = user ? 'UserPage' : 'AuthPage';
+
+        // Загрузка компонентов
+        require([
+            'app/ComponentStorage.js',
+            `app/Controllers/${includedPage}.js`
+        ], function (ComponentStorage, Page) {
+            document.body.innerHTML = new Page();
+            ComponentStorage.list.forEach(instance => {
+                instance.afterRender();
+            });
         });
+
+    } catch (e) {
+        document.body.innerHTML = 'Упс, похоже, что-то пошло не так.';
     }
 
-});
+})();

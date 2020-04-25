@@ -1,0 +1,45 @@
+/*полурозрачный фон под модальным окном*/
+.layer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(86, 101, 110, 0.7);
+    z-index: 50;
+    position: fixed;
+}
+.layer:hover{
+    cursor: pointer;
+}
+/*модальное окно с фотографией*/
+.modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    width: 80%;
+    max-width: 640px;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    background-color: white;
+}
+/*кнопка выхода из модального окна*/
+.btn{
+    float: right;
+    margin: 30px;
+    background:transparent;
+    padding: 0;
+    border: none;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: rgb(194, 189, 189);
+    border-radius: 10px;
+}
+/*картинка-крестик на кнопке выхода*/
+.btn-img{
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+}

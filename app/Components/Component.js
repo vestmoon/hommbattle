@@ -49,7 +49,7 @@ define('app/Components/Component.js', ['app/ComponentStorage.js'], function (Com
          * @returns {void}
          */
         afterRender() {}
-
+        
     }
 
 });
