@@ -2,7 +2,7 @@ define("app/Components/photo/Photo.js", [
   "app/Components/Component.js",
   "app/Components/modalWindow/ModalWindow.js",
   "css!app/Components/photo/photo.css",
-], function (Component) {
+], function (Component, ModalWindow) {
   return class Photo extends Component {
     /**
      *
@@ -15,6 +15,9 @@ define("app/Components/photo/Photo.js", [
       this.size = size;
     }
 
+    /**
+     * определение, круглая фотография или нет
+     */
     round() {
       let mod_round = "";
       if (this.size == "xs" || this.size == "s") {
@@ -29,13 +32,9 @@ define("app/Components/photo/Photo.js", [
      */
     openWindow(event) {
       let src_photo = event.currentTarget.src;
-      require(["app/Components/modalWindow/ModalWindow.js"], function (
-        ModalWindow
-      ) {
-        let photoModal = new ModalWindow(src_photo);
-        document.body.insertAdjacentHTML("afterbegin", `${photoModal}`);
-        photoModal.afterRender();
-      });
+      let photoModal = new ModalWindow(src_photo);
+      document.body.insertAdjacentHTML("afterbegin", `${photoModal}`);
+      photoModal.afterRender();
     }
 
     /**
@@ -46,11 +45,10 @@ define("app/Components/photo/Photo.js", [
       edit_photo.insertAdjacentHTML(
         "afterEnd",
         `<form class="edit-field"><input name="myFile" class="load-file" type="file" id="fileUpload" accept="image/*"/>       
-        <input class = "subm" title="ок" type="image" src="assets/img/icons/ok.png">
         <label for ="fileUpload" title="загрузить новую фотографию"><img class="load-img" src="assets/img/icons/download.png"></label></form>`
       );
-      let edit_field = document.querySelector(".subm");
-      edit_field.addEventListener("click", this.handleImageUpload);
+      let edit_field = document.querySelector(".load-file");
+      edit_field.addEventListener("change", this.handleImageUpload);
     }
 
     /**

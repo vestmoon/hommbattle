@@ -14,6 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     z-index: 100;
     width: 80%;
     max-width: 640px;
@@ -29,15 +30,16 @@
 /*кнопка выхода из модального окна*/
 .btn{
     float: right;
-    margin: 30px;
+    margin: 40px;
     background:transparent;
+    opacity: 50%;
     padding: 0;
     border: none;
+    outline: none;
 }
 .btn:hover{
     cursor: pointer;
-    background-color: rgb(194, 189, 189);
-    border-radius: 10px;
+    opacity: 100%;
 }
 /*картинка-крестик на кнопке выхода*/
 .btn-img{

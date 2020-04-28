@@ -11,7 +11,7 @@
   border-radius: 50%;
 }
 /*фото в модальном окне*/
-.photo_curs:hover {
+.photo_cursor:hover {
   cursor: default;
 }
 /*самая маленькая круглая фотка*/
@@ -35,7 +35,14 @@
   max-width: 95%;
   max-height: 95%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+}
+/* фотка для модального окна в галереи */
+.size_mod-gallery {
+  max-width: 95%;
+  max-height: 70%;
+  height: auto;
+  object-fit: contain;
 }
 /*большая фотка (по умолчанию)*/
 .size_l {
@@ -73,17 +80,6 @@
 .load-file {
   display: none;
 }
-/* стилизация кнопки типа submit */
-.subm {
-  width: 22px;
-  height: 22px;
-  border: none;
-  background-color: white;
-  margin-right: 10px;
-  margin-top: 10px;
-  outline: none;
-  opacity: 80%;
-}
 
 /* кратинка "загрузки", нажав, на которую можно выбрать нужную фотографию для обновления  */
 .load-img {
@@ -93,11 +89,11 @@
   margin-right: 10px;
   margin-top: 10px;
   outline: none;
+  opacity: 60%;
 }
 
-.load-img:hover,
-.subm:hover {
+.load-img:hover {
   cursor: pointer;
-  background-color: rgb(209, 209, 209);
   z-index: 10;
+  opacity: 100%;
 }

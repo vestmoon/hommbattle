@@ -1,59 +1,78 @@
-.gallery-wrapper{
-    width: 100%;
-    display: flex;
-    position: relative;
-    overflow: hidden;
+.gallery-wrapper {
+  width: 100%;
+  display: flex;
+  position: relative;
+  overflow: hidden;
 }
-.gallery{
-    max-width: 100%;  
-    display: flex;
-    
-    /* overflow: hidden; */
-    /* overflow: scroll; */
-    margin: 0;
-    position: relative;
-    transition: transform 0.6s ease;
+.gallery-wrapper-margin {
+  margin: 10px;
+}
+.gallery {
+  max-width: 100%;
+  display: flex;
+  margin: 0;
+  position: relative;
+  transition: transform 0.6s ease;
 }
 .gallery::-webkit-scrollbar {
-    display: none;
-  }
-.gallery__item{
-    margin-right: 10px;
-    width: 153px;
-    height: 153px;
+  display: none;
 }
-.slider{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 100%;
-    width: 30px;
-    background-color: white;
-    opacity: 50%;
+.gallery__item {
+  margin-right: 10px;
+  width: 153px;
+  height: 153px;
 }
-.gallery-wrapper:hover .slider{
-    cursor: pointer;
-    display: flex;
-    position: absolute;
+.slider {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: 30px;
+  background-color: white;
+  opacity: 50%;
 }
-.slider:hover{
-    background-color: lightgrey;
+.gallery-wrapper:hover .slider {
+  cursor: pointer;
+  display: flex;
+  position: absolute;
 }
-.slider-rigth{
-    right: 0;
+.slider:hover {
+  background-color: lightgrey;
 }
-.slider-left{
-    left: 0;
+.slider-rigth {
+  right: 0;
 }
-.btn-slider{
-    object-fit: cover;
-    width: 40px;
-    height: 40px;
+.slider-left {
+  left: 0;
 }
-.slider-rigth-hidden{
-    display: none;
+.btn-slider {
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
 }
-.slider-left-hidden{
-    display: none;
+.slider-rigth-hidden {
+  display: none;
+}
+.slider-left-hidden {
+  display: none;
+}
+.slider-top {
+  position: absolute;
+  width: 40%;
+  height: 30px;
+  margin: 0 30%;
+  color: gray;
+  font-weight: 500;
+  font-family: cursive;
+  font-size: larger;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 5;
+}
+.photos-wrapper {
+  margin-top: 10px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
 }

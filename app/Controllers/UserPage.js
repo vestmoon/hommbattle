@@ -18,7 +18,7 @@ define('app/Controllers/UserPage.js', [
          */
         constructor() {
             // Функция, вызывающая родительский конструктор
-            super();     
+            super();              
 
             // Данные о пользователе
             this.user = {
@@ -99,8 +99,31 @@ define('app/Controllers/UserPage.js', [
                 "assets/img/4_square.jpg",
             ];
 
-            //Путь до фотографии пользователя
-            this.photoUser = 'http://tensor-school.herokuapp.com/user/photo/115';
+        }
+
+        // Получение данных о фотографии пользователя
+        async renderUserPhoto(){
+            const API_URL = 'https://tensor-school.herokuapp.com';
+            let photoUser='app/Components/photo/default_photo.jpg';
+            let url = API_URL + '/user/current';
+            let options = {"credentials": "include"};
+            const response = await fetch(url, options);
+
+            try {
+                const code = response.status;
+                if(code == 200){
+                    const user = await response.json();
+                    photoUser = new Photo(API_URL+user['computed_data']['photo_ref'], 'l');
+                    document.querySelector(".block_pos").innerHTML = `${photoUser}`;
+                }
+
+            }catch(e) {
+                photoUser='Упс, что-то пошло не так'
+            }
+
+            photoUser.afterRender();
+
+            return photoUser;
         }
 
         /**
@@ -126,7 +149,6 @@ define('app/Controllers/UserPage.js', [
                         </aside>
                         <div> 
                             <div class="block  block_pos">
-                                ${new Photo(this.photoUser,'l')}   
                             </div>
                             ${new ProfileActions()}
                             <div class="block">
@@ -136,6 +158,13 @@ define('app/Controllers/UserPage.js', [
                     </section>
                 </div>
             `;
+        }
+
+        // Вызов функции для отрисовки фотографии пользователя
+        afterRender(){
+            (async () => {
+                await this.renderUserPhoto();
+            })();
         }
 
     }
