@@ -170,7 +170,7 @@ define('app/Controllers/UserPage.js', [
     }
 
     // Создание и возвращение экземпляра
-    return new UserPage();
+    return UserPage;
 
 });
 
