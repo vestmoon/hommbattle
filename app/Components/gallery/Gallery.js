@@ -1,9 +1,9 @@
 define("app/Components/gallery/Gallery.js", [
   "app/Components/Component.js",
   "app/Components/photo/Photo.js",
-  "app/Components/modalWindow/ModalWindow.js",
+  "app/Components/galleryModal/GalleryModal.js",
   "css!app/Components/gallery/gallery.css",
-], function (Component, Photo, ModalWindow) {
+], function (Component, Photo, galleryModal) {
   // Количество сдвинутых при пролистовании слайдера пикселей
   const STEP = 163;
   const COUNT_VISIBLE_PHOTOS = 4;
@@ -63,9 +63,9 @@ define("app/Components/gallery/Gallery.js", [
 
       let slide = document.querySelector(`.slider-${direction}`);
 
-      let gall = document.querySelector(".gallery");
+      let galleryBlock = document.querySelector(".gallery");
       if (this.photos.length >= COUNT_VISIBLE_PHOTOS) {
-        gall.style.transform += translate;
+        galleryBlock.style.transform += translate;
         this.count += add_to;
         if (condition) {
           slide.classList.remove("slider");
@@ -93,25 +93,13 @@ define("app/Components/gallery/Gallery.js", [
       this.slideTo("rigth", "left");
     };
 
-    /**
-     * Открытие модального окна галереи
-     */
+    // /**
+    //  * Открытие модального окна галереи
+    //  */
     openModalGallery = () => {
-      let renderGallery = this.renderForModal();
-      let galleryModal = new ModalWindow(this.photos[0], renderGallery);
-      document.body.insertAdjacentHTML("afterbegin", `${galleryModal}`);
-      this.afterRender();
-      document.querySelector(".size_mod").classList.add("size_mod-gallery");
-      galleryModal.afterRender();
-    };
-
-    /**
-     * Открытие фотографии в модальном окне
-     */
-    insertModal = (event) => {
-      if (document.querySelector(".size_mod-gallery")) {
-        document.querySelector(".size_mod-gallery").src = event.currentTarget.src;
-      }
+      let galleryModalWindow = new galleryModal(this.photos);
+      document.body.insertAdjacentHTML("afterbegin", `${galleryModalWindow}`);
+      galleryModalWindow.afterRender();
     };
 
     /**
@@ -129,31 +117,13 @@ define("app/Components/gallery/Gallery.js", [
               </div>`;
     }
 
-    /**
-     * Отрисовка галереи в модальном окне
-     */
-    renderForModal() {
-      return `<div class="gallery-wrapper gallery-wrapper-margin">
-                <div class="gallery">
-                 ${this.renderPhoto()}
-                </div>
-                <div class="slider slider-rigth"><img class="btn-slider" src="assets/img/icons/rigth_slider.png" alt="rigth"></div>
-                <div class="slider-left-hidden"><img class="btn-slider" src="assets/img/icons/left_slider.png" alt="left"></div>
-              </div>`;
-    }
-
     afterRender() {
-      let gall = document.querySelector(".gallery");
       let btn_left = document.querySelector(".slider-left-hidden");
       let btn_rigth = document.querySelector(".slider-rigth");
       let btn_top = document.querySelector(".slider-top");
       btn_left.addEventListener("click", this.toLeft);
       btn_rigth.addEventListener("click", this.toRigth);
       btn_top.addEventListener("click", this.openModalGallery);
-      let allPhotosInGallery = document.querySelectorAll(".size_m");
-      for (let i = 0; i < allPhotosInGallery.length; i++) {
-        allPhotosInGallery[i].addEventListener("click", this.insertModal);
-      }
     }
   };
 });

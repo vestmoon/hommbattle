@@ -34,7 +34,6 @@ define("app/Components/modalWindow/ModalWindow.js", [
     render() {
       return `
         <div class="layer">
-        <button class="btn"><img class="btn-img" src="assets/img/icons/x_close.png"></button>
         </div>
         <div class="modal">
           <img class="photo photo_cursor size_mod" src="${this.url}">

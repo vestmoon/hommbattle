@@ -6,6 +6,7 @@
     z-index: 50;
     position: fixed;
 }
+
 .layer:hover{
     cursor: pointer;
 }
@@ -26,24 +27,4 @@
     box-shadow: 0 15px 10px 10px rgba(2, 2, 2, 0.2);
     position: fixed;
     background-color: white;
-}
-/*кнопка выхода из модального окна*/
-.btn{
-    float: right;
-    margin: 40px;
-    background:transparent;
-    opacity: 50%;
-    padding: 0;
-    border: none;
-    outline: none;
-}
-.btn:hover{
-    cursor: pointer;
-    opacity: 100%;
-}
-/*картинка-крестик на кнопке выхода*/
-.btn-img{
-    object-fit: cover;
-    width: 30px;
-    height: 30px;
 }

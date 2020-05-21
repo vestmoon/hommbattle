@@ -1,3 +1,4 @@
+// "use strict";
 define("app/Components/photo/Photo.js", [
   "app/Components/Component.js",
   "app/Components/modalWindow/ModalWindow.js",
@@ -7,7 +8,7 @@ define("app/Components/photo/Photo.js", [
     /**
      *
      *@param {url} url - url фото
-     *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;) - по умолчанию, 'l' (width: 230px), 'xl' (width: 640px)
+     *@param {string} size - размер, 's' (40px*40px круглая), 'm' (height: 140px;) - по умолчанию, 'l', 'lmod' (width: 230px), 'xl' (width: 640px)
      */
     constructor(url = "app/Components/photo/default_photo.jpg", size = "m") {
       super();
@@ -73,7 +74,6 @@ define("app/Components/photo/Photo.js", [
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(selectedFile);
           })
           .catch((error) => {
             console.error("ERROR!!!!!");
@@ -98,7 +98,7 @@ define("app/Components/photo/Photo.js", [
     }
 
     afterRender() {
-      if (this.size == "m" || this.size == "l" || this.size == "xl") {
+      if (this.size == "m" || this.size == "l" || this.size == "xl" || this.size == 'lmod') {
         let click_photo = document.getElementById(`${this.id}`);
         click_photo.addEventListener("click", this.openWindow);
       }
