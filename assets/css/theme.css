@@ -126,6 +126,9 @@ section.layout {
   cursor: pointer;
   text-decoration: none;
 }
+.block_pos {
+  position: relative;
+}
 
 /*
  * Details Block

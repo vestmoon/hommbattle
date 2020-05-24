@@ -8,9 +8,10 @@ define("app/Components/modalWindow/ModalWindow.js", [
      *
      *@param {url} url - url фото
      */
-    constructor(url = "app/Components/photo/default_photo.jpg") {
+    constructor(url = "app/Components/photo/default_photo.jpg", gallery = '') {
       super();
       this.url = url;
+      this.gallery = gallery;
     }
 
     /**
@@ -33,10 +34,10 @@ define("app/Components/modalWindow/ModalWindow.js", [
     render() {
       return `
         <div class="layer">
-        <button class="btn"><img class="btn-img" src="assets/img/icons/x_close.png"></button>
         </div>
         <div class="modal">
-          <img class="photo photo_curs size_xl" src="${this.url}">
+          <img class="photo photo_cursor size_mod" src="${this.url}">
+          ${this.gallery}
         </div>`;
     }
    
