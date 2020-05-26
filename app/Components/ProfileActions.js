@@ -61,7 +61,7 @@ define(
 
             this.config.forEach((item) => {
                 menuItems += `
-                    <a href="/${item.src}">
+                    <a target="_blank" href="action.html">
                         <div class="details__item" title="${item.title}">
                             <div class="details__title">
                                 <i class="${item.iconClass.join(' ')}"></i>
