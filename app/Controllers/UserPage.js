@@ -83,20 +83,13 @@ define('app/Controllers/UserPage.js', [
             this.photos = [
                 "assets/img/1_square.jpg",
                 "assets/img/2_square.jpg",
-                "assets/img/3_square.jpg",
                 "assets/img/4_square.jpg",
-                "assets/img/1_square.jpg",
-                "assets/img/2_square.jpg",
+                "assets/img/11_full.jpg",
                 "assets/img/3_square.jpg",
-                "assets/img/4_square.jpg",
-                "assets/img/1_square.jpg",
-                "assets/img/2_square.jpg",
-                "assets/img/3_square.jpg",
-                "assets/img/4_square.jpg",
-                "assets/img/1_square.jpg",
-                "assets/img/2_square.jpg",
-                "assets/img/3_square.jpg",
-                "assets/img/4_square.jpg",
+                "assets/img/9_full.jpg",
+                "assets/img/10_full.jpg",
+                "assets/img/5_full.jpg",
+                "assets/img/12_full.jpg",
             ];
 
         }
@@ -113,12 +106,14 @@ define('app/Controllers/UserPage.js', [
                 const code = response.status;
                 if(code == 200){
                     const user = await response.json();
+                    const url_listphoto = API_URL + `/photo/list/${user.id}`;
+                    console.log(url_listphoto);
                     photoUser = new Photo(API_URL+user['computed_data']['photo_ref'], 'l');
                     document.querySelector(".block_pos").innerHTML = `${photoUser}`;
                 }
 
             }catch(e) {
-                photoUser='Упс, что-то пошло не так'
+                photoUser='Упс, что-то пошло не так';
             }
 
             photoUser.afterRender();
@@ -140,7 +135,7 @@ define('app/Controllers/UserPage.js', [
 							<div class="block">
 								${new ProfileInfo(this.user)}
 							</div>
-                            <div class="block">
+                            <div class="block  block-gallery">
                                 ${new Gallery(this.photos)}
                             </div>
                             <div class="block">

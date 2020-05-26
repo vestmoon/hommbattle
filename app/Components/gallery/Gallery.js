@@ -23,7 +23,7 @@ define("app/Components/gallery/Gallery.js", [
      */
     renderPhoto() {
       let photo = "";
-      for (let i = 0; i < this.photos.length; i++) {
+      for (let i = this.photos.length - 1; i >= 0; i--) {
         photo += `<div class="gallery__item">${new Photo(
           this.photos[i],
           "m"

@@ -28,7 +28,7 @@
 .size_m {
   height: 100%;
   max-height: 160px;
-  width: auto;
+  width: 153px;
 }
 /* фотка в модальном окне */
 .size_mod {
@@ -37,13 +37,7 @@
   height: auto;
   object-fit: contain;
 }
-/* фотка для модального окна в галереи
-.size_mod-gallery {
-  max-width: 95%;
-  max-height: 70%;
-  height: auto;
-  object-fit: contain;
-} */
+
 /*большая фотка (по умолчанию)*/
 .size_l {
   max-height: 340px;
@@ -52,8 +46,6 @@
 /*большая фотка для модального окна галереи*/
 .size_lmod {
   max-height: 300px;
-  width: auto;
-  position: relative;
 }
 /*самая большая фотка*/
 .size_xl {
