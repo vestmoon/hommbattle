@@ -11,7 +11,7 @@ define("app/Components/galleryModal/GalleryModal.js", [
     constructor(photos = ["app/Components/photo/default_photo.jpg"]) {
       super();
       this.photos = [];
-      for (let i = 0; i < photos.length; i++) {
+      for (let i = photos.length - 1; i >= 0 ; i--) {
         this.photos.push(new Photo(photos[i], "lmod"));
       }
     }
@@ -39,7 +39,7 @@ define("app/Components/galleryModal/GalleryModal.js", [
 
     render() {
       return `
-      <div class = "layer_zindex"></div>
+      <div class = "layer_zindex">
       </div>
       <div class="modal-gallery">
         ${this.renderPhotos()}
