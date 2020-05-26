@@ -1,7 +1,7 @@
 define("app/Components/modalWindow/ModalWindow.js", [
   "app/Components/Component.js",
   "css!app/Components/modalWindow/modalWindow.css",
-  "css!app/Components/photo/Photo.css",
+  "css!app/Components/photo/photo.css",
 ], function (Component) {
   return class ModalWindow extends Component {
     /**
