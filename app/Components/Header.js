@@ -113,7 +113,7 @@ define(
                                 <div class="profile__nav">
                                     ${this.renderNavItems()}
                                     <hr class="nav-link__line">
-                                    <a class="nav-link" href="#">Выйти</a>
+                                    <a class="nav-link nav-link_exit" href="#">Выйти</a>
                                 </div>
                             </div>
                         </div>
