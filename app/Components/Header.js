@@ -80,6 +80,14 @@ define(
             afterRender() {
                  document.querySelector(".header__profile").addEventListener("click", 
                  () => this.toggleHeaderMenu());
+				 document.querySelector(".nav-link_exit").addEventListener("click", () => {
+					this.logout();
+					location.reload();
+				 });
+            }
+			
+			async logout(){
+                await fetch("https://tensor-school.herokuapp.com/user/logout", {credentials: 'include'});
             }
 
 
