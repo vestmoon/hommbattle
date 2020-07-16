@@ -17,9 +17,8 @@ define('app/Controllers/UserPage.js', [
          * Инициализация компонента
          */
         constructor() {
-
             // Функция, вызывающая родительский конструктор
-            super();
+            super();              
 
             // Данные о пользователе
             this.user = {
@@ -84,13 +83,42 @@ define('app/Controllers/UserPage.js', [
             this.photos = [
                 "assets/img/1_square.jpg",
                 "assets/img/2_square.jpg",
+                "assets/img/4_square.jpg",
+                "assets/img/11_full.jpg",
                 "assets/img/3_square.jpg",
-                "assets/img/4_square.jpg",
-                "assets/img/4_square.jpg",
-                "assets/img/4_square.jpg",
-                "assets/img/4_square.jpg",
-                "assets/img/4_square.jpg",
+                "assets/img/9_full.jpg",
+                "assets/img/10_full.jpg",
+                "assets/img/5_full.jpg",
+                "assets/img/12_full.jpg",
             ];
+
+        }
+
+        // Получение данных о фотографии пользователя
+        async renderUserPhoto(){
+            const API_URL = 'https://tensor-school.herokuapp.com';
+            let photoUser='app/Components/photo/default_photo.jpg';
+            let url = API_URL + '/user/current';
+            let options = {"credentials": "include"};
+            const response = await fetch(url, options);
+
+            try {
+                const code = response.status;
+                if(code == 200){
+                    const user = await response.json();
+                    const url_listphoto = API_URL + `/photo/list/${user.id}`;
+                    console.log(url_listphoto);
+                    photoUser = new Photo(API_URL+user['computed_data']['photo_ref'], 'l');
+                    document.querySelector(".block_pos").innerHTML = `${photoUser}`;
+                }
+
+            }catch(e) {
+                photoUser='Упс, что-то пошло не так';
+            }
+
+            photoUser.afterRender();
+
+            return photoUser;
         }
 
         /**
@@ -101,13 +129,13 @@ define('app/Controllers/UserPage.js', [
 
             return `
                <div class="container">
-                    ${new Header()}
+                    ${new Header("assets/img/people.jpg")}
                     <section class="layout">
                         <aside>
 							<div class="block">
 								${new ProfileInfo(this.user)}
 							</div>
-                            <div class="block">
+                            <div class="block  block-gallery">
                                 ${new Gallery(this.photos)}
                             </div>
                             <div class="block">
@@ -115,8 +143,7 @@ define('app/Controllers/UserPage.js', [
                             </div>
                         </aside>
                         <div> 
-                            <div class="block">
-                                ${new Photo("assets/img/people-square.jpg",'l')}
+                            <div class="block  block_pos">
                             </div>
                             ${new ProfileActions()}
                             <div class="block">
@@ -128,10 +155,17 @@ define('app/Controllers/UserPage.js', [
             `;
         }
 
+        // Вызов функции для отрисовки фотографии пользователя
+        afterRender(){
+            (async () => {
+                await this.renderUserPhoto();
+            })();
+        }
+
     }
 
     // Создание и возвращение экземпляра
-    return new UserPage();
+    return UserPage;
 
 });
 
