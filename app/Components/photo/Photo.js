@@ -14,6 +14,10 @@ define("app/Components/photo/Photo.js", [
       this.size = size;
     }
 
+    afterRender() {
+      console.log(this);
+    }
+
     round(){
       let mod_round ='';
       if (this.size == 'xs' || this.size == 's') {
