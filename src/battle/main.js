@@ -54,7 +54,8 @@ class BattleField extends React.Component {
     const dataset = event.target.dataset;
     let x = +dataset.col;
     const y = +dataset.row;
-    const coord = this.state.field[y-1][x-1];
+    const row = this.state.field[y-1];
+    const coord = row[x-1];
 
     // игнорирование занятых клеток
     if (coord === CELL_VALUES.EMPTY || coord === CELL_VALUES.UNIT) {
@@ -64,7 +65,16 @@ class BattleField extends React.Component {
     const unitState = this.state.currentUnit;
     const unitXCoordinate = unitState.position.x;
     const direction = unitXCoordinate - x > 0 ? 'left' : 'right';
-    // const isFieldEndCoord = (x !== 1 || x !== FIELD_SIZE.COLUMNS);
+
+    if (unitState.size === CELL_VALUES.BIG_UNIT) {
+      if (unitState.battleSide === 'left' && direction === 'right') {
+        if (row[x] !== CELL_VALUES.MOVE) {
+          x--;
+        }
+      } else {
+        // x = row[x-CELL_VALUES.BIG_UNIT] !== CELL_VALUES.MOVE ? x + 1 : x; 
+      }
+    }
 
     const currentUnit = Object.assign({}, this.state.currentUnit, {position: {x, y}, direction});
     
@@ -148,8 +158,14 @@ class BattleField extends React.Component {
       for (let j = 0; j < FIELD_SIZE.COLUMNS; j++) {
         if (i === currentUnitPos.y - 1 && j === currentUnitPos.x - 1) {
           field[i].push(currentUnitSize);
+
+          /**
+           * если юнит большой, то надо заполнять +1 ячейку под него
+           * при этом надо учитывать направление и сторону юнита на поле
+           * и размещать доп. клетку слева или справа в зависимости от стороны
+           */
           if (currentUnitSize === CELL_VALUES.BIG_UNIT) {
-            currentUnitSide === 'left' ? field[i].push(currentUnitSize) : field[i][field[i].length - 2] = currentUnitSize;
+            currentUnitSide === 'left' ? field[i].push(currentUnitSize) : field[i][field[i].length - currentUnitSize] = currentUnitSize;
           }
         } else {
           field[i].push(CELL_VALUES.EMPTY);
