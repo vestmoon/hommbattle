@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/hommbattle/static/css/main.5f361e03.chunk.css",
+    "main.js": "/hommbattle/static/js/main.e33afacd.chunk.js",
+    "main.js.map": "/hommbattle/static/js/main.e33afacd.chunk.js.map",
+    "runtime-main.js": "/hommbattle/static/js/runtime-main.b70d9493.js",
+    "runtime-main.js.map": "/hommbattle/static/js/runtime-main.b70d9493.js.map",
+    "static/js/2.66ebdc2e.chunk.js": "/hommbattle/static/js/2.66ebdc2e.chunk.js",
+    "static/js/2.66ebdc2e.chunk.js.map": "/hommbattle/static/js/2.66ebdc2e.chunk.js.map",
+    "index.html": "/hommbattle/index.html",
+    "precache-manifest.6e80ff30669047f31611af0763d79b7e.js": "/hommbattle/precache-manifest.6e80ff30669047f31611af0763d79b7e.js",
+    "service-worker.js": "/hommbattle/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/hommbattle/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.66ebdc2e.chunk.js.LICENSE.txt": "/hommbattle/static/js/2.66ebdc2e.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/hommbattle/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b70d9493.js",
+    "static/js/2.66ebdc2e.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.e33afacd.chunk.js"
+  ]
+}
