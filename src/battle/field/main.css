@@ -1,0 +1,39 @@
+.battleField_main {
+  padding: 75px 50px;
+  background: #000;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.battlefield_row {
+  display: flex;
+  margin-bottom: -18px;
+}
+
+.battlefield_row--odd {
+  margin-left: 61px;
+}
+
+.battlefield_cell {
+  stroke: #ffff00;
+}
+
+.battlefield_cell path {
+  pointer-events: none;
+}
+
+.battlefield_cell--movable {
+  fill: #ffff0030;
+}
+
+.battlefield_cell--movable:hover {
+  fill: #ffff0070;
+  cursor: pointer;
+}
+
+.battlefield_cell--movable:active {
+  fill: #ffff0090;
+  cursor: pointer;
+}
