@@ -9,7 +9,8 @@ const FIELD_SIZE = {
 const CELL_VALUES = {
   EMPTY: 0,
   UNIT: 1,
-  WALL: 2,
+  BIG_UNIT: 2,
+  WALL: 3,
   MOVE: 4
 }
 
@@ -21,11 +22,11 @@ class BattleField extends React.Component {
       field: [],
       currentUnit: {
         position: {
-          x: 15,
+          x: 1,
           y: 1
         },
-        direction: 'left',
-        battleSide: 'right',
+        direction: 'right',
+        battleSide: 'left',
         size: 2,
         speed: 3
       }
@@ -47,11 +48,16 @@ class BattleField extends React.Component {
    * @param {Event} event 
    */
   _handleCellClick(event) {
+    if (event.target.tagName !== 'svg') {
+      return;
+    }
     const dataset = event.target.dataset;
     let x = +dataset.col;
     const y = +dataset.row;
+    const coord = this.state.field[y-1][x-1];
 
-    if (!this.state.field[y-1][x-1]) {
+    // игнорирование занятых клеток
+    if (coord === CELL_VALUES.EMPTY || coord === CELL_VALUES.UNIT) {
       return;
     }
 
@@ -59,12 +65,6 @@ class BattleField extends React.Component {
     const unitXCoordinate = unitState.position.x;
     const direction = unitXCoordinate - x > 0 ? 'left' : 'right';
     // const isFieldEndCoord = (x !== 1 || x !== FIELD_SIZE.COLUMNS);
-
-    if (unitState.size > 1) {
-      if (unitState.battleSide === direction && x !== 1 && Math.abs(x - unitXCoordinate) > 1) {
-        x--;
-      }
-    }
 
     const currentUnit = Object.assign({}, this.state.currentUnit, {position: {x, y}, direction});
     
@@ -94,6 +94,7 @@ class BattleField extends React.Component {
     const currentUnit = this.state.currentUnit;
     const currentUnitPos = currentUnit.position;
     const currentUnitSpeed = currentUnit.speed;
+    const currentUnitSide = currentUnit.battleSide;
 
     let positionOffset = 0;
 
@@ -107,7 +108,7 @@ class BattleField extends React.Component {
       }
 
       for (let i = 0; i < currentUnitSpeed * 2 + currentUnit.size - j; i++) {
-        const oneSideDistance = currentUnitSpeed + currentUnit.size - 1;
+        const oneSideDistance = currentUnitSpeed + (currentUnitSide === 'left' ? currentUnit.size - 1 : 0);
         const xCoordinate = (i > oneSideDistance ? currentUnitPos.x - i + oneSideDistance : currentUnitPos.x + i) - positionOffset;
         coords.push(`${xCoordinate} ${currentRow}`);
         
@@ -136,14 +137,20 @@ class BattleField extends React.Component {
    */
   _setVirtualField() {
     let field = [];
-    const currentUnitPos = this.state.currentUnit.position;
+    const currentUnit = this.state.currentUnit;
+    const currentUnitPos = currentUnit.position;
+    const currentUnitSide = currentUnit.battleSide;
+    const currentUnitSize = currentUnit.size;
 
     for (let i = 0; i < FIELD_SIZE.ROWS; i++) {
       field.push([]);
 
       for (let j = 0; j < FIELD_SIZE.COLUMNS; j++) {
         if (i === currentUnitPos.y - 1 && j === currentUnitPos.x - 1) {
-          field[i].push(CELL_VALUES.UNIT);
+          field[i].push(currentUnitSize);
+          if (currentUnitSize === CELL_VALUES.BIG_UNIT) {
+            currentUnitSide === 'left' ? field[i].push(currentUnitSize) : field[i][field[i].length - 2] = currentUnitSize;
+          }
         } else {
           field[i].push(CELL_VALUES.EMPTY);
         }
@@ -160,7 +167,6 @@ class BattleField extends React.Component {
    */
   _makeMarkUp() {
     const markUp = [];
-    let unitSizeCount = 0;
     const field = this._setVirtualField();
 
     for (let i = 1; i <= FIELD_SIZE.ROWS; i++) {
@@ -171,14 +177,11 @@ class BattleField extends React.Component {
         let cellClassName = "battlefield_cell";
         
         switch (field[i-1][j-1]) {
-          case 1:
+          case CELL_VALUES.UNIT:
+          case CELL_VALUES.BIG_UNIT:
             cellClassName += ` ${cellClassName}--currentUnit`;
-            unitSizeCount++;
-            if (unitSizeCount < this.state.currentUnit.size) {
-              field[i-1][j] = 1;
-            }
             break;
-          case 4:
+          case CELL_VALUES.MOVE:
             cellClassName += ` ${cellClassName}--movable`;
             break;
           default:
@@ -186,7 +189,6 @@ class BattleField extends React.Component {
         }
 
         row.push(<svg key={`cell_${i}-${j}`}
-                      onClick={this._handleCellClick}
                       data-row={i}
                       data-col={j}
                       className={cellClassName}
@@ -197,7 +199,6 @@ class BattleField extends React.Component {
                   </svg>);
       }
       markUp.push(<div key={`row_${i}`} className={rowClass}>{row}</div>);
-      unitSizeCount = 0;
     };
     
     return  {markUp, field};
@@ -219,7 +220,7 @@ class BattleField extends React.Component {
 
   render() {
     return (
-      <div className="battleField_main">
+      <div className="battleField_main" onClick={this._handleCellClick}>
         {this.state.markUp}
       </div>
     );
