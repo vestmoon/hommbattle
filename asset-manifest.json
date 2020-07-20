@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/hommbattle/static/css/main.1621d4f7.chunk.css",
-    "main.js": "/hommbattle/static/js/main.41edd05c.chunk.js",
-    "main.js.map": "/hommbattle/static/js/main.41edd05c.chunk.js.map",
+    "main.js": "/hommbattle/static/js/main.11172e5b.chunk.js",
+    "main.js.map": "/hommbattle/static/js/main.11172e5b.chunk.js.map",
     "runtime-main.js": "/hommbattle/static/js/runtime-main.b70d9493.js",
     "runtime-main.js.map": "/hommbattle/static/js/runtime-main.b70d9493.js.map",
     "static/js/2.9367606e.chunk.js": "/hommbattle/static/js/2.9367606e.chunk.js",
     "static/js/2.9367606e.chunk.js.map": "/hommbattle/static/js/2.9367606e.chunk.js.map",
     "index.html": "/hommbattle/index.html",
-    "precache-manifest.18ac0fc0e0a8a3bd9da1288a79cf3206.js": "/hommbattle/precache-manifest.18ac0fc0e0a8a3bd9da1288a79cf3206.js",
+    "precache-manifest.5e8a008641608b4221d15dc272d1dfb4.js": "/hommbattle/precache-manifest.5e8a008641608b4221d15dc272d1dfb4.js",
     "service-worker.js": "/hommbattle/service-worker.js",
     "static/css/main.1621d4f7.chunk.css.map": "/hommbattle/static/css/main.1621d4f7.chunk.css.map",
     "static/js/2.9367606e.chunk.js.LICENSE.txt": "/hommbattle/static/js/2.9367606e.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.b70d9493.js",
     "static/js/2.9367606e.chunk.js",
     "static/css/main.1621d4f7.chunk.css",
-    "static/js/main.41edd05c.chunk.js"
+    "static/js/main.11172e5b.chunk.js"
   ]
 }

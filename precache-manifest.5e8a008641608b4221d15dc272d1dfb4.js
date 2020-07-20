@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2a82022f8e10817f6614feed9e654051",
+    "revision": "5db36193ca70dd37a99f5db2f9e79271",
     "url": "/hommbattle/index.html"
   },
   {
-    "revision": "8bd073e2b9d838af611a",
+    "revision": "401003ea293e99ac5230",
     "url": "/hommbattle/static/css/main.1621d4f7.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hommbattle/static/js/2.9367606e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8bd073e2b9d838af611a",
-    "url": "/hommbattle/static/js/main.41edd05c.chunk.js"
+    "revision": "401003ea293e99ac5230",
+    "url": "/hommbattle/static/js/main.11172e5b.chunk.js"
   },
   {
     "revision": "83f0ed71a6700b35b218",
