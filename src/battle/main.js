@@ -1,5 +1,6 @@
 import React from 'react';
 import './field/main.css';
+import {UnitFactory} from './factory/unit';
 
 const FIELD_SIZE = {
   COLUMNS: 15,
@@ -19,17 +20,7 @@ class BattleField extends React.Component {
     super(props);
     this.state = {
       markUp: [],
-      field: [],
-      currentUnit: {
-        position: {
-          x: 1,
-          y: 1
-        },
-        direction: 'right',
-        battleSide: 'left',
-        size: 2,
-        speed: 3
-      }
+      field: []
     };
 
     this.svgContainer = {
@@ -41,6 +32,35 @@ class BattleField extends React.Component {
 
     this._handleCellClick = this._handleCellClick.bind(this);
     this._findPath = this._findPath.bind(this);
+  }
+
+  async componentDidMount() {
+    const config = {
+      position: {
+        x: 1,
+        y: 1
+      },
+      direction: 'right',
+      battleSide: 'left',
+    }
+    const swordsman = new UnitFactory().create('castle', 'angel', config);
+
+    /**
+     * TODO: Сомнительно, надо устанавливать юнитов и разметку, а потом уже запускать цикл с выбранным юнитом и его полем хода
+     */
+    await this.setState({currentUnit: swordsman});
+    await this.setState(this._makeMarkUp());
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.currentUnit) {
+      const currentPos = this.state.currentUnit.position;
+      const prevPos = prevState.currentUnit.position;
+
+      if (currentPos.x !== prevPos.x || currentPos.y !== prevPos.y) {
+        this.setState(this._makeMarkUp());
+      }
+    }
   }
 
   /**
@@ -56,9 +76,10 @@ class BattleField extends React.Component {
     const y = +dataset.row;
     const row = this.state.field[y-1];
     const coord = row[x-1];
+    const currentCoord = this.state.currentUnit.position;
 
     // игнорирование занятых клеток
-    if (coord === CELL_VALUES.EMPTY || coord === CELL_VALUES.UNIT) {
+    if (coord === CELL_VALUES.EMPTY || (currentCoord.x === x && currentCoord.y === y)) {
       return;
     }
 
@@ -66,13 +87,16 @@ class BattleField extends React.Component {
     const unitXCoordinate = unitState.position.x;
     const direction = unitXCoordinate - x > 0 ? 'left' : 'right';
 
+    // рассчет хода для большого юнита
     if (unitState.size === CELL_VALUES.BIG_UNIT) {
       if (unitState.battleSide === 'left' && direction === 'right') {
         if (row[x] !== CELL_VALUES.MOVE) {
           x--;
         }
-      } else {
-        // x = row[x-CELL_VALUES.BIG_UNIT] !== CELL_VALUES.MOVE ? x + 1 : x; 
+      } else if (unitState.battleSide === 'right' && direction === 'left') {
+        if (row[x - CELL_VALUES.BIG_UNIT] !== CELL_VALUES.MOVE) {
+          x++;
+        }
       }
     }
 
@@ -219,20 +243,6 @@ class BattleField extends React.Component {
     
     return  {markUp, field};
   }
-
-  componentDidMount() {
-    this.setState(this._makeMarkUp());
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const currentPos = this.state.currentUnit.position;
-    const prevPos = prevState.currentUnit.position;
-
-    if (currentPos.x !== prevPos.x || currentPos.y !== prevPos.y) {
-      this.setState(this._makeMarkUp());
-    }
-  }
-
 
   render() {
     return (
