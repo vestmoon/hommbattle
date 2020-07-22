@@ -15,7 +15,7 @@ for (let side in ARMY) {
     sideArmy.units.forEach((unit, index) => {
         const config = {
             position: {
-                x: 1,
+                x: side === 'left' ? 1 : 15,
                 y: index + 1
             },
             direction: side === 'left' ? 'right' : 'left',
@@ -23,7 +23,6 @@ for (let side in ARMY) {
         }
         units[side].push(UnitFactory.create(sideArmy.fraction, unit.name, config));
     });
-    console.log(units);
 }
 
-ReactDOM.render(<BattleField />, document.getElementById('root'));
+ReactDOM.render(<BattleField units={units}/>, document.getElementById('root'));

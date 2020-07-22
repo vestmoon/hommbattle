@@ -11,5 +11,14 @@ export const ARMY = {
                 size: 30
             }
         ]
+    },
+    right: {
+        fraction: 'castle',
+        units: [
+            {
+                name: 'cavalryman',
+                size: 40
+            },
+        ]
     }
 };

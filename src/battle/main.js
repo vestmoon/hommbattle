@@ -36,10 +36,6 @@ class BattleField extends React.Component {
   }
 
   async componentDidMount() {
-    /**
-     * TODO: Сомнительно, надо устанавливать юнитов и разметку, а потом уже запускать цикл с выбранным юнитом и его полем хода
-     */
-    // await this.setState({currentUnit: swordsman});
     this._setVirtualField();
     await this.setState({markUp: this._makeMarkUp()});
   }
@@ -152,16 +148,42 @@ class BattleField extends React.Component {
   }
 
   /**
-   * Заполнение виртуального поля
+   * Заполнение виртуального поля, первичная инициализация
    */
   _setVirtualField() {
+    const units = this.state.units;
+
     for (let i = 0; i < FIELD_SIZE.ROWS; i++) {
       FIELD.push([]);
 
       for (let j = 0; j < FIELD_SIZE.COLUMNS; j++) {
-        FIELD[i].push(CELL_VALUES.EMPTY);
+        for (let side in units) {
+          const unit = units[side][i];
+          
+          if (i === unit?.position.y - 1 && j === unit?.position.x - 1) {
+            const unitSize = unit.size;
+            const unitSide = unit.battleSide;
+            FIELD[i][j] = unitSize;
+      
+            /**
+             * если юнит большой, то надо заполнять +1 ячейку под него
+             * при этом надо учитывать направление и сторону юнита на поле
+             * и размещать доп. клетку слева или справа в зависимости от стороны
+             */
+            if (unitSize === CELL_VALUES.BIG_UNIT) {
+              const bigUnitSecondX = unitSide === 'left' ? j + 1 : FIELD[i].length - unitSize;
+              FIELD[i][bigUnitSecondX] = unitSize;
+            }
+          }
+        }
+
+        if (!FIELD[i][j]) {
+          FIELD[i][j] = CELL_VALUES.EMPTY;
+        }
       }
     }
+
+    console.log(FIELD)
   }
 
   // Выбор юнита в зависимости от его скорости
@@ -180,27 +202,8 @@ class BattleField extends React.Component {
     const currentUnitPos = currentUnit.position;
     const currentUnitSpeed = currentUnit.speed;
     const currentUnitSide = currentUnit.battleSide;
-    const currentUnitSize = currentUnit.size;
 
     let positionOffset = 0;
-
-    for (let i = 0; i < FIELD_SIZE.ROWS; i++) {
-      for (let j = 0; j < FIELD_SIZE.COLUMNS; j++) {
-        if (i === currentUnitPos.y - 1 && j === currentUnitPos.x - 1) {
-          virtualField[i][j] = currentUnitSize;
-    
-          /**
-           * если юнит большой, то надо заполнять +1 ячейку под него
-           * при этом надо учитывать направление и сторону юнита на поле
-           * и размещать доп. клетку слева или справа в зависимости от стороны
-           */
-          if (currentUnitSize === CELL_VALUES.BIG_UNIT) {
-            const bigUnitSecondX = currentUnitSide === 'left' ? j + 1 : virtualField[i].length - currentUnitSize;
-            virtualField[i][bigUnitSecondX] = currentUnitSize;
-          }
-        }
-      }
-    }
 
     for (let j = 0; j <= currentUnitSpeed; j++) {
       const currentRow = currentUnitPos.y + j;
