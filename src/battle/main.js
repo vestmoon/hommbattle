@@ -42,11 +42,14 @@ class BattleField extends React.Component {
     for (let side in army) {
       army[side].forEach((unit) => units.push(unit));
     }
-    await this.setState({units});
+    units.sort((a, b) => b.speed - a.speed);
 
-    this._setVirtualField();
-    this._setCurrentUnit();
-    await this.setState({markUp: this._makeMarkUp()});
+    this._setVirtualField(true);
+    this._setMovableCells(units[0]);
+    await this.setState({
+      units: units,
+      currentUnit: units[0],
+      markUp: this._makeMarkUp()});
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -57,8 +60,7 @@ class BattleField extends React.Component {
       if (currentPos.x !== prevPos.x || currentPos.y !== prevPos.y) {
         this._setVirtualField();
         this._setUnitPositionInField(this.state.currentUnit, prevState.currentUnit);
-        this.setState(this._makeMarkUp());
-        this._setMovableCells();
+        this._setMovableCells(this.state.currentUnit);
         await this.setState({markUp: this._makeMarkUp()});
       }
     }
@@ -162,18 +164,22 @@ class BattleField extends React.Component {
   /**
    * Заполнение виртуального поля
    */
-  _setVirtualField() {
+  _setVirtualField(firstInit) {
     const army = this.state.army;
 
     for (let i = 0; i < FIELD_SIZE.ROWS; i++) {
-      FIELD.push([]);
+      if (firstInit) {
+        FIELD.push([]);
+      }
 
       for (let j = 0; j < FIELD_SIZE.COLUMNS; j++) {
-        for (let side in army) {
-          const unit = army[side][i];
-          
-          if (i === unit?.position.y - 1 && j === unit?.position.x - 1) {
-            this._setUnitPositionInField(unit);
+        if (firstInit) {
+          for (let side in army) {
+            const unit = army[side][i];
+            
+            if (i === unit?.position.y - 1 && j === unit?.position.x - 1) {
+              this._setUnitPositionInField(unit);
+            }
           }
         }
 
@@ -215,24 +221,14 @@ class BattleField extends React.Component {
     }
   }
 
-  // Выбор юнита в зависимости от его скорости
-  _setCurrentUnit() {
-    const units = this.state.units;
-    units.sort((a, b) => b.speed - a.speed);
-    this.setState({currentUnit: units[0]});
-
-    this._setMovableCells();
-  }
-
   /**
    * Отображение клеток, доступных для перемещения
    */
-  _setMovableCells() {
+  _setMovableCells(unit) {
     let coords = [];
-    const currentUnit = this.state.currentUnit;
-    const currentUnitPos = currentUnit.position;
-    const currentUnitSpeed = currentUnit.speed;
-    const currentUnitSide = currentUnit.battleSide;
+    const currentUnitPos = unit.position;
+    const currentUnitSpeed = unit.speed;
+    const currentUnitSide = unit.battleSide;
 
     let positionOffset = 0;
 
@@ -247,8 +243,8 @@ class BattleField extends React.Component {
 
       // рассчет возможных клеток для передвижения вокруг юнита с учетом его скорости и размера
       // если большой юнит смотрит вправо, то надо сместить координаты хода вправо на одну клетку и увеличить дальность хода на 1
-      for (let i = 0; i < currentUnitSpeed * 2 + currentUnit.size - j; i++) {
-        const oneSideDistance = currentUnitSpeed + (currentUnitSide === 'left' ? currentUnit.size - 1 : 0);
+      for (let i = 0; i < currentUnitSpeed * 2 + unit.size - j; i++) {
+        const oneSideDistance = currentUnitSpeed + (currentUnitSide === 'left' ? unit.size - 1 : 0);
         const xCoordinate = (i > oneSideDistance ? currentUnitPos.x - i + oneSideDistance : currentUnitPos.x + i) - positionOffset;
         coords.push(`${xCoordinate} ${currentRow}`);
         
