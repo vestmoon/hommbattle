@@ -54,13 +54,14 @@ class BattleField extends React.Component {
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevState.currentUnit) {
-      const currentPos = this.state.currentUnit.position;
+      const currentUnit = this.state.currentUnit;
+      const currentPos = currentUnit.position;
       const prevPos = prevState.currentUnit.position;
 
       if (currentPos.x !== prevPos.x || currentPos.y !== prevPos.y) {
         this._setVirtualField();
-        this._setUnitPositionInField(this.state.currentUnit, prevState.currentUnit);
-        this._setMovableCells(this.state.currentUnit);
+        this._setUnitPositionInField(currentUnit, prevState.currentUnit);
+        this._setMovableCells(currentUnit);
         await this.setState({markUp: this._makeMarkUp()});
       }
     }
