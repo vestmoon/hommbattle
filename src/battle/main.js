@@ -21,7 +21,8 @@ class BattleField extends React.Component {
     super(props);
     this.state = {
       markUp: [],
-      units: props.units
+      army: props.army,
+      units: []
     };
 
     this.svgContainer = {
@@ -36,17 +37,29 @@ class BattleField extends React.Component {
   }
 
   async componentDidMount() {
+    const army = this.state.army;
+    const units = [];
+    for (let side in army) {
+      army[side].forEach((unit) => units.push(unit));
+    }
+    await this.setState({units});
+
     this._setVirtualField();
+    this._setCurrentUnit();
     await this.setState({markUp: this._makeMarkUp()});
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     if (prevState.currentUnit) {
       const currentPos = this.state.currentUnit.position;
       const prevPos = prevState.currentUnit.position;
 
       if (currentPos.x !== prevPos.x || currentPos.y !== prevPos.y) {
+        this._setVirtualField();
+        this._setUnitPositionInField(this.state.currentUnit, prevState.currentUnit);
         this.setState(this._makeMarkUp());
+        this._setMovableCells();
+        await this.setState({markUp: this._makeMarkUp()});
       }
     }
   }
@@ -55,10 +68,11 @@ class BattleField extends React.Component {
    * Обработчик клика по ячейке поля
    * @param {Event} event 
    */
-  _handleCellClick(event) {
+  async _handleCellClick(event) {
     if (event.target.tagName !== 'svg') {
       return;
     }
+
     const dataset = event.target.dataset;
     let x = +dataset.col;
     const y = +dataset.row;
@@ -89,12 +103,10 @@ class BattleField extends React.Component {
     }
 
     const currentUnit = Object.assign({}, this.state.currentUnit, {position: {x, y}, direction});
-    
-    this._findPath(x, y);
 
-    this.setState({
-      currentUnit
-    });
+    await this.setState({currentUnit});
+
+    this._findPath(x, y);
   }
 
   /**
@@ -148,56 +160,66 @@ class BattleField extends React.Component {
   }
 
   /**
-   * Заполнение виртуального поля, первичная инициализация
+   * Заполнение виртуального поля
    */
   _setVirtualField() {
-    const units = this.state.units;
+    const army = this.state.army;
 
     for (let i = 0; i < FIELD_SIZE.ROWS; i++) {
       FIELD.push([]);
 
       for (let j = 0; j < FIELD_SIZE.COLUMNS; j++) {
-        for (let side in units) {
-          const unit = units[side][i];
+        for (let side in army) {
+          const unit = army[side][i];
           
           if (i === unit?.position.y - 1 && j === unit?.position.x - 1) {
-            const unitSize = unit.size;
-            const unitSide = unit.battleSide;
-            FIELD[i][j] = unitSize;
-      
-            /**
-             * если юнит большой, то надо заполнять +1 ячейку под него
-             * при этом надо учитывать направление и сторону юнита на поле
-             * и размещать доп. клетку слева или справа в зависимости от стороны
-             */
-            if (unitSize === CELL_VALUES.BIG_UNIT) {
-              const bigUnitSecondX = unitSide === 'left' ? j + 1 : FIELD[i].length - unitSize;
-              FIELD[i][bigUnitSecondX] = unitSize;
-            }
+            this._setUnitPositionInField(unit);
           }
         }
 
-        if (!FIELD[i][j]) {
+        if (!FIELD[i][j] || FIELD[i][j] === CELL_VALUES.MOVE) {
           FIELD[i][j] = CELL_VALUES.EMPTY;
         }
       }
     }
+  }
 
-    console.log(FIELD)
+  /**
+   * Установка позиции юнита в виртуальном поле
+   * @param {*} unit - текущее состояние юнита
+   * @param {*} prevUnit - предыдущее состояние юнита
+   */
+  _setUnitPositionInField(unit, prevUnit) {
+    const unitPos = unit.position;
+    const unitPosX = unitPos.y - 1;
+    const unitPosY = unitPos.x - 1;
+    FIELD[unitPosX][unitPosY] = unit.size;
+      
+    /**
+     * если юнит большой, то надо заполнять +1 ячейку под него
+     * при этом надо учитывать направление и сторону юнита на поле
+     * и размещать доп. клетку слева или справа в зависимости от стороны
+     */
+    if (unit.size === CELL_VALUES.BIG_UNIT) {
+      const bigUnitSecondX = unit.battleSide === 'left' ? unitPosY + 1 : unitPosY - 1;
+      FIELD[unitPosX][bigUnitSecondX] = unit.size;
+    }
   }
 
   // Выбор юнита в зависимости от его скорости
   _setCurrentUnit() {
+    const units = this.state.units;
+    units.sort((a, b) => b.speed - a.speed);
+    this.setState({currentUnit: units[0]});
 
-  } 
+    this._setMovableCells();
+  }
 
   /**
    * Отображение клеток, доступных для перемещения
-   * @param {Array} virtualMarkup 
    */
-  _setMovableCells(virtualMarkup) {
+  _setMovableCells() {
     let coords = [];
-    const virtualField = virtualMarkup;
     const currentUnit = this.state.currentUnit;
     const currentUnitPos = currentUnit.position;
     const currentUnitSpeed = currentUnit.speed;
@@ -233,12 +255,12 @@ class BattleField extends React.Component {
       const x = +item.split(' ')[0];
       const isCorrectCoordinate = x > 0 && x <= FIELD_SIZE.COLUMNS && y > 0 && y <= FIELD_SIZE.ROWS;
 
-      if (isCorrectCoordinate && virtualField[y - 1][x - 1] === CELL_VALUES.EMPTY) {
-        virtualField[y - 1][x - 1] = CELL_VALUES.MOVE;
+      if (isCorrectCoordinate && FIELD[y - 1][x - 1] === CELL_VALUES.EMPTY) {
+        FIELD[y - 1][x - 1] = CELL_VALUES.MOVE;
       }
     });
 
-    return virtualField;
+    return FIELD;
   }
 
   render() {

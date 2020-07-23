@@ -5,7 +5,7 @@ import BattleField from './battle/main';
 import UnitFactory from './battle/factory/unit';
 import {ARMY} from './battle/army';
 
-const units = {
+const army = {
     left: [],
     right: []
 };
@@ -21,8 +21,8 @@ for (let side in ARMY) {
             direction: side === 'left' ? 'right' : 'left',
             battleSide: side
         }
-        units[side].push(UnitFactory.create(sideArmy.fraction, unit.name, config));
+        army[side].push(UnitFactory.create(sideArmy.fraction, unit.name, config));
     });
 }
 
-ReactDOM.render(<BattleField units={units}/>, document.getElementById('root'));
+ReactDOM.render(<BattleField army={army}/>, document.getElementById('root'));
