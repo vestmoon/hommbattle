@@ -194,6 +194,10 @@ class BattleField extends React.Component {
     const unitPosX = unitPos.y - 1;
     const unitPosY = unitPos.x - 1;
     FIELD[unitPosX][unitPosY] = unit.size;
+
+    if (prevUnit) {
+      FIELD[prevUnit.position.y - 1][prevUnit.position.x - 1] = CELL_VALUES.EMPTY;
+    }
       
     /**
      * если юнит большой, то надо заполнять +1 ячейку под него
@@ -203,6 +207,11 @@ class BattleField extends React.Component {
     if (unit.size === CELL_VALUES.BIG_UNIT) {
       const bigUnitSecondX = unit.battleSide === 'left' ? unitPosY + 1 : unitPosY - 1;
       FIELD[unitPosX][bigUnitSecondX] = unit.size;
+
+      if (prevUnit) {
+        const prevUnitSecondX = unit.battleSide === 'left' ? prevUnit.position.x + 1 : prevUnit.position.x - CELL_VALUES.BIG_UNIT;
+        FIELD[prevUnit.position.y - 1][prevUnitSecondX] = CELL_VALUES.EMPTY;
+      }
     }
   }
 
