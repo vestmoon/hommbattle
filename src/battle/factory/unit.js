@@ -75,12 +75,13 @@ class UnitFactory {
             const x = +item.split(' ')[0];
             const isFieldCell = x >= 1 && x <= FIELD_SIZE.COLUMNS && y >= 1 && y <= FIELD_SIZE.ROWS;
             let isNotUnitCell = x !== currentUnitPos.x || y !== currentUnitPos.y;
+            let isBigUnitCell = false;
 
-            if (unit.size === CELL_VALUES.BIG_UNIT && isNotUnitCell) {
+            if (unit.size === CELL_VALUES.BIG_UNIT) {
                 const bigUnitSecondCell = unit.battleSide === 'right' ? currentUnitPos.x - 1 : currentUnitPos.x + 1;
-                isNotUnitCell = x !== bigUnitSecondCell && y !== currentUnitPos.y;
+                isBigUnitCell = x === bigUnitSecondCell && y === currentUnitPos.y;
             }
-            return isFieldCell && isNotUnitCell;
+            return isFieldCell && isNotUnitCell && !isBigUnitCell;
         });
 
         return result;
