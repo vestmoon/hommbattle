@@ -1,18 +1,6 @@
 import React from 'react';
 import './field/main.css';
-
-const FIELD_SIZE = {
-  COLUMNS: 15,
-  ROWS: 11
-}
-
-const CELL_VALUES = {
-  EMPTY: 0,
-  UNIT: 1,
-  BIG_UNIT: 2,
-  WALL: 3,
-  MOVE: 4
-}
+import {FIELD_SIZE, CELL_VALUES, CELL_SVG} from './constants';
 
 let FIELD = [];
 
@@ -25,12 +13,7 @@ class BattleField extends React.Component {
       units: []
     };
 
-    this.svgContainer = {
-      width: '61',
-      height: '70',
-      viewBox: '0 0 60.6217782649107 70',
-      path: 'M30.31088913245535 0L60.6217782649107 17.5L60.6217782649107 52.5L30.31088913245535 70L0 52.5L0 17.5Z'
-    };
+    this.svgContainer = CELL_SVG;
 
     this._handleCellClick = this._handleCellClick.bind(this);
     this._findPath = this._findPath.bind(this);
@@ -217,7 +200,8 @@ class BattleField extends React.Component {
 
       if (prevUnit) {
         const prevUnitSecondX = unit.battleSide === 'left' ? prevUnit.position.x + 1 : prevUnit.position.x - CELL_VALUES.BIG_UNIT;
-        FIELD[prevUnit.position.y - 1][prevUnitSecondX] = CELL_VALUES.EMPTY;
+        const isSameCell = unitPosY === prevUnitSecondX && unitPosX === prevUnit.position.y - 1;
+        FIELD[prevUnit.position.y - 1][prevUnitSecondX] = isSameCell ? CELL_VALUES.BIG_UNIT : CELL_VALUES.EMPTY;
       }
     }
   }
@@ -237,7 +221,8 @@ class BattleField extends React.Component {
       const currentRow = currentUnitPos.y + j;
 
       // сдвиг начала доступных для перемещения клеток в строке
-      // так как поле сделано из гексов, то каждая вторая строка сдвигается на одну клетку относительно самой крайней клетки
+      // так как поле сделано из гексов, то каждая вторая строка в поле для передвижения
+      // сдвигается на одну клетку относительно самой крайней клетки
       if (currentRow !== currentUnitPos.y && currentRow % 2 !== 0) {
         positionOffset++;
       }

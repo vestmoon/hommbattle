@@ -66,7 +66,7 @@ export const UNITS = {
             damage: [50, 50],
             health: 200,
             speed: 12,
-            size: 1,
+            size: 2,
             fly: true,
             range: false
         }

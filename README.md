@@ -1,3 +1,15 @@
+## TODO
+
+Рефактор кода по возможности после каждой фичи
+
+1. Сохранять id каждого юнита
+2. Запоминать передвижение каждого юнита для показа на hover
+3. Объекты на поле
+4. Учет передвижения с оъектами
+5. Поиск пути
+6. Анимации
+7. Очередность хода
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
