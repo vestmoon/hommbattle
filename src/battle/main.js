@@ -1,6 +1,7 @@
 import React from 'react';
 import './field/main.css';
 import {FIELD_SIZE, CELL_VALUES, CELL_SVG} from './constants';
+import UnitFactory from './factory/unit';
 
 let FIELD = [];
 
@@ -42,9 +43,10 @@ class BattleField extends React.Component {
       const prevPos = prevState.currentUnit.position;
 
       if (currentPos.x !== prevPos.x || currentPos.y !== prevPos.y) {
+        const newUnit = UnitFactory.refresh(currentUnit);
         this._setVirtualField();
-        this._setUnitPositionInField(currentUnit, prevState.currentUnit);
-        this._setMovableCells(currentUnit);
+        this._setUnitPositionInField(newUnit, prevState.currentUnit);
+        this._setMovableCells(newUnit);
         await this.setState({markUp: this._makeMarkUp()});
       }
     }
@@ -210,48 +212,15 @@ class BattleField extends React.Component {
    * Отображение клеток, доступных для перемещения
    */
   _setMovableCells(unit) {
-    let coords = [];
-    const currentUnitPos = unit.position;
-    const currentUnitSpeed = unit.speed;
-    const currentUnitSide = unit.battleSide;
-
-    let positionOffset = 0;
-
-    for (let j = 0; j <= currentUnitSpeed; j++) {
-      const currentRow = currentUnitPos.y + j;
-
-      // сдвиг начала доступных для перемещения клеток в строке
-      // так как поле сделано из гексов, то каждая вторая строка в поле для передвижения
-      // сдвигается на одну клетку относительно самой крайней клетки
-      if (currentRow !== currentUnitPos.y && currentRow % 2 !== 0) {
-        positionOffset++;
-      }
-
-      // рассчет возможных клеток для передвижения вокруг юнита с учетом его скорости и размера
-      // если большой юнит смотрит вправо, то надо сместить координаты хода вправо на одну клетку и увеличить дальность хода на 1
-      for (let i = 0; i < currentUnitSpeed * 2 + unit.size - j; i++) {
-        const oneSideDistance = currentUnitSpeed + (currentUnitSide === 'left' ? unit.size - 1 : 0);
-        const xCoordinate = (i > oneSideDistance ? currentUnitPos.x - i + oneSideDistance : currentUnitPos.x + i) - positionOffset;
-        coords.push(`${xCoordinate} ${currentRow}`);
-        
-        if (currentRow !== currentRow - j * 2) {
-          coords.push(`${xCoordinate} ${currentRow - j * 2}`);
-        }
-      }
-    }
-
     // обрезка невозможных для хода координат
-    coords.forEach((item) => {
-      const y = +item.split(' ')[1];
-      const x = +item.split(' ')[0];
-      const isCorrectCoordinate = x > 0 && x <= FIELD_SIZE.COLUMNS && y > 0 && y <= FIELD_SIZE.ROWS;
+    unit.moveZone.forEach((item) => {
+      const y = +item.split(' ')[0] - 1;
+      const x = +item.split(' ')[1] - 1;
 
-      if (isCorrectCoordinate && FIELD[y - 1][x - 1] === CELL_VALUES.EMPTY) {
-        FIELD[y - 1][x - 1] = CELL_VALUES.MOVE;
+      if (FIELD[x][y] === CELL_VALUES.EMPTY) {
+        FIELD[x][y] = CELL_VALUES.MOVE;
       }
     });
-
-    return FIELD;
   }
 
   render() {

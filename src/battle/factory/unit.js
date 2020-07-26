@@ -7,6 +7,12 @@ class UnitFactory {
         this.units = [];
     }
 
+    /**
+     * Создание юнита
+     * @param {string} fraction - фракция/замок юнита
+     * @param {string} name - название юнита
+     * @param {*} otherCfg - конфигурация юнита
+     */
     create(fraction, name, otherCfg) {
         const unit = {...UNITS[fraction][name], ...otherCfg};
         unit.id = this._setId();
@@ -14,8 +20,28 @@ class UnitFactory {
         unit.moveZone = this._getMoveZone(unit);
         
         this.units.push(unit);
-        console.log(unit);
         return unit;
+    }
+
+    /**
+     * Обновление юнита
+     * @param {*} unit - конфигурация юнита 
+     */
+    refresh(unit) {
+        let result;
+        this.units.forEach((item, i) => {
+            if (item.id === unit.id) {
+                if (item.position.x !== unit.position.x || item.position.y !== unit.position.y) {
+                    unit.meleeZone = this._getMeleeZone(unit);
+                    unit.moveZone = this._getMoveZone(unit);
+                }
+
+                this.units[i] = {...item, ...unit};
+                result = this.units[i];
+            }
+        });
+
+        return result;
     }
 
     /**
