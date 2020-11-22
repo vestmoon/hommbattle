@@ -1,5 +1,6 @@
-export const ARMY = {
-    left: {
+export const ARMY = [
+    {
+        side: 'left',
         fraction: 'castle',
         units: [
             {
@@ -12,7 +13,8 @@ export const ARMY = {
             }
         ]
     },
-    right: {
+    {
+        side: 'right',
         fraction: 'castle',
         units: [
             {
@@ -21,4 +23,4 @@ export const ARMY = {
             },
         ]
     }
-};
+];

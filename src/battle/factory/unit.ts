@@ -1,70 +1,96 @@
 import {UNITS} from '../units/stats';
 import {FIELD_SIZE, CELL_VALUES} from '../constants';
 
+export interface IUnit {
+    id: string;
+    position: {
+        x: number;
+        y: number;
+    };
+    direction: string;
+    battleSide: string;
+    meleeZone: string[];
+    moveZone: string[];
+    speed: number;
+    size: number;
+}
+
+interface IUnitsDictionary<TValue> {
+    [id: string]: TValue;
+}
+
 class UnitFactory {
-    constructor() {
-        UnitFactory._instance = this;
-        this.units = [];
+    private static _instance: UnitFactory;
+    private _indexedUnits: IUnitsDictionary<IUnit>;
+
+    private constructor() {
+        this._indexedUnits = {};
     }
 
     /**
      * Создание юнита
      * @param {string} fraction - фракция/замок юнита
      * @param {string} name - название юнита
-     * @param {*} otherCfg - конфигурация юнита
+     * @param {IUnit} otherCfg - конфигурация юнита
      */
-    create(fraction, name, otherCfg) {
+    public create(fraction: string, name: string, otherCfg: {}): IUnit {
         const unit = {...UNITS[fraction][name], ...otherCfg};
-        unit.id = this._setId();
+        let id = this._generateId();
         unit.meleeZone = this._getMeleeZone(unit);
         unit.moveZone = this._getMoveZone(unit);
+
+        while (this._indexedUnits[id]) {
+            id = this._generateId();
+        }
         
-        this.units.push(unit);
+        unit.id = id;
+        this._indexedUnits[id] = unit;
         return unit;
     }
 
     /**
      * Обновление юнита
-     * @param {*} unit - конфигурация юнита 
+     * @param {IUnit} unit - конфигурация юнита 
      */
-    refresh(unit) {
-        let result;
-        this.units.forEach((item, i) => {
-            if (item.id === unit.id) {
-                if (item.position.x !== unit.position.x || item.position.y !== unit.position.y) {
-                    unit.meleeZone = this._getMeleeZone(unit);
-                    unit.moveZone = this._getMoveZone(unit);
-                }
+    public refresh(unit: IUnit): IUnit {
+        let refreshedUnit = this.getUnitById(unit.id);
+        if (refreshedUnit.position.x !== unit.position.x || refreshedUnit.position.y !== unit.position.y) {
+            unit.meleeZone = this._getMeleeZone(unit);
+            unit.moveZone = this._getMoveZone(unit);
+        }
+        refreshedUnit = {...refreshedUnit, ...unit};
+        return {...{}, ...refreshedUnit};
+    }
 
-                this.units[i] = {...item, ...unit};
-                result = this.units[i];
-            }
-        });
-
-        return result;
+    /**
+     * Поиск юнита по id
+     * @param {string} id - id юнита 
+     */
+    private getUnitById(id: string): IUnit {
+        return this._indexedUnits[id];
     }
 
     /**
      * Генерация ID
      */
-    _setId() {
+    private _generateId(): string {
         return `_${Math.random().toString(36).substr(2, 9)}`;
     }
 
     /**
      * Сохранение пограничной зоны для контакта с юнитом
-     * @param {*} unit - конфиг юнита
+     * @param {IUnit} unit - конфиг юнита
      */
-    _getMeleeZone(unit) {
+    private _getMeleeZone(unit: IUnit): string[] {
         const cfg = {...unit, ...{speed: 1}};
         return this._getMoveZone(cfg);
     }
 
     /**
      * Сохранение доступных для передвижения клеток юнита
-     * @param {*} unit - конфиг юнита
+     * @param {IUnit} unit - конфиг юнита
      */
-    _getMoveZone(unit) {
+    private _getMoveZone(unit: IUnit): string[] {
         let coords = [];
         const currentUnitPos = unit.position;
         const currentUnitSpeed = unit.speed;
@@ -113,9 +139,13 @@ class UnitFactory {
         return result;
     }
     
-    getInstance() {
+    public static getInstance(): UnitFactory {
+        if (!UnitFactory._instance) {
+            UnitFactory._instance = new UnitFactory();
+        }
+
         return UnitFactory._instance;
     }
 }
 
-export default new UnitFactory().getInstance();
+export default UnitFactory.getInstance();
