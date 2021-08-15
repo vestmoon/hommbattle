@@ -10,7 +10,10 @@ class BattleField extends React.Component {
     super(props);
     this.state = {
       markUp: [],
-      army: props.army,
+      army: {
+        left: props.leftArmy,
+        right: props.rightArmy
+      },
       units: []
     };
 

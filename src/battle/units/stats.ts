@@ -1,4 +1,35 @@
-export const UNITS = {
+/**
+ * Интерфейс характеристик юнита из замка
+ */
+export interface ICastleUnit {
+    attack: number;
+    defence: number;
+    damage: number[];
+    health: number;
+    speed: number;
+    size: number;
+    fly: boolean;
+    range: boolean;
+}
+
+/**
+ * Интерфейс конкретного юнита (имя + характеристики)
+ */
+interface ICastleUnits {
+    [key: string]: ICastleUnit;
+}
+
+/**
+ * Интерфейс армии замка
+ */
+interface IArmy {
+    [key: string]: ICastleUnits
+}
+
+/**
+ * Набор всех юнитов
+ */
+export const UNITS: IArmy = {
     castle: {
         spearman: {
             attack: 4,

@@ -1,18 +1,19 @@
-import {UNITS} from '../units/stats';
+import {UNITS, ICastleUnit} from '../units/stats';
 import {FIELD_SIZE, CELL_VALUES} from '../constants';
 
-export interface IUnit {
-    id: string;
+export interface IUnitPosition {
     position: {
         x: number;
         y: number;
     };
     direction: string;
     battleSide: string;
+}
+
+export interface IUnit extends ICastleUnit, IUnitPosition {
+    id: string;
     meleeZone: string[];
     moveZone: string[];
-    speed: number;
-    size: number;
 }
 
 interface IUnitsDictionary<TValue> {
@@ -31,11 +32,11 @@ class UnitFactory {
      * Создание юнита
      * @param {string} fraction - фракция/замок юнита
      * @param {string} name - название юнита
-     * @param {IUnit} otherCfg - конфигурация юнита
+     * @param {IUnitPosition} otherCfg - конфигурация юнита
      */
-    public create(fraction: string, name: string, otherCfg: {}): IUnit {
-        const unit = {...UNITS[fraction][name], ...otherCfg};
+    public create(fraction: string, name: string, otherCfg: IUnitPosition): IUnit {
         let id = this._generateId();
+        const unit: IUnit = {...UNITS[fraction][name], ...otherCfg, id, meleeZone: [], moveZone: []};
         unit.meleeZone = this._getMeleeZone(unit);
         unit.moveZone = this._getMoveZone(unit);
 
